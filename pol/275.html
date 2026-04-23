@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Los Rose</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #96BB54;
+      --bg-dark: #070817;
+      --bg-card: #121430;
+      --text-main: #ffffff;
+      --glass: rgba(255, 255, 255, 0.05);
+      --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+    body { background-color: var(--bg-dark); color: var(--text-main); overflow-x: hidden; }
+
+    /* HEADER IDENTICO AL INDEX */
+    header {
+      position: sticky; top: 0; z-index: 1100;
+      background: rgba(7, 8, 23, 0.95); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+      padding: 10px 4%; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--glass);
+    }
+    .logo-link { text-decoration: none; color: var(--primary); font-weight: 800; font-size: 1.2rem; display: none; }
+    @media (min-width: 768px) { .logo-link { display: block; } }
+
+    .search-container { flex: 1; }
+    .buscador {
+      width: 100%; background: var(--glass); border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 12px 20px; border-radius: 50px; color: white; outline: none; font-size: 16px;
+      transition: var(--transition);
+    }
+    .buscador:focus { border-color: var(--primary); background: rgba(255,255,255,0.1); }
+
+    /* CONTENEDOR PRINCIPAL */
+    .main-container { display: flex; flex-direction: column; align-items: center; padding: 20px 4% 50px; width: 100%; }
+    .movie-header { text-align: center; margin-bottom: 20px; width: 100%; max-width: 1100px; }
+    .badge { display: inline-block; padding: 4px 12px; background: var(--glass); border: 1px solid var(--primary); color: var(--primary); border-radius: 6px; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; margin-bottom: 10px; }
+    h1 { font-size: clamp(1.4rem, 5vw, 2.5rem); font-weight: 800; line-height: 1.2; background: linear-gradient(to right, #fff, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+    /* REPRODUCTOR RESPONSIVO */
+    .player-wrapper { width: 100%; max-width: 1100px; background: #000; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.8); margin-bottom: 40px; }
+    @media (min-width: 768px) { .player-wrapper { border-radius: 15px; border: 1px solid var(--glass); overflow: hidden; } }
+    .iframe-container { position: relative; padding-bottom: 56.25%; height: 0; }
+    .iframe-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+
+    /* GRID RECOMENDADOS: 3 móvil / 6 PC */
+    .relacionadas-container { width: 100%; max-width: 1100px; }
+    .seccion-titulo { font-size: 0.9rem; font-weight: 700; color: var(--primary); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; text-transform: uppercase; letter-spacing: 1px; }
+    .seccion-titulo::after { content: ""; flex: 1; height: 1px; background: var(--glass); }
+
+    .grid-relacionadas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    @media (min-width: 900px) { .grid-relacionadas { grid-template-columns: repeat(6, 1fr); gap: 20px; } }
+
+    .card-mini { background: var(--bg-card); border-radius: 8px; overflow: hidden; text-decoration: none; border: 1px solid var(--glass); position: relative; transition: var(--transition); display: block;}
+    .card-mini:hover { transform: translateY(-5px); border-color: var(--primary); }
+    .card-mini img { width: 100%; aspect-ratio: 2/3; object-fit: cover; display: block; }
+    .info-mini { padding: 12px 5px 8px; background: linear-gradient(transparent, rgba(0,0,0,0.9) 80%); position: absolute; bottom: 0; width: 100%; }
+    .info-mini h5 { color: #fff; font-size: 0.7rem; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    /* MENÚ LATERAL (EL MISMO DEL INDEX) */
+    #menu { 
+      position: fixed; top: 0; left: -105%; width: 85%; max-width: 320px; height: 100vh; 
+      background: var(--bg-card); z-index: 2000; padding: 30px 20px; 
+      transition: left 0.5s cubic-bezier(0.16, 1, 0.3, 1); 
+      overflow-y: auto; border-right: 1px solid var(--glass);
+      box-shadow: 20px 0 50px rgba(0,0,0,0.5);
+    }
+    #menu.active { left: 0; }
+    #overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 1500; backdrop-filter: blur(5px); }
+    
+    .seccion-label { font-size: 0.7rem; color: var(--primary); font-weight: 800; text-transform: uppercase; margin: 25px 0 15px 5px; letter-spacing: 1.5px; opacity: 0.7; }
+    .grid-filtros { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .filtro { 
+      padding: 12px; background: var(--glass); border: 1px solid transparent; 
+      color: #eee; cursor: pointer; border-radius: 8px; font-size: 0.8rem; 
+      transition: 0.3s; text-align: left; text-decoration: none;
+    }
+    .filtro:hover { background: var(--primary); color: #000; font-weight: 700; }
+    .filtro-full { grid-column: 1 / -1; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div id="btnMenu" style="cursor:pointer; padding: 5px;">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+  </div>
+  <a href="../index.html" class="logo-link">CineStream</a>
+  <div class="search-container">
+    <input type="search" id="buscador" class="buscador" placeholder="Buscar en el catálogo...">
+  </div>
+</header>
+
+<div id="overlay"></div>
+
+<nav id="menu">
+  <h2 style="color:var(--primary); font-weight: 800; margin-bottom: 20px;">CineStream</h2>
+  
+  <div class="seccion-label">Navegación</div>
+  <div class="grid-filtros">
+    <a href="../index.html" class="filtro filtro-full">Explorar Todo</a>
+    <a href="../index.html?genero=peliculas" class="filtro">Películas</a>
+    <a href="../index.html?genero=series" class="filtro">Series</a>
+    <a href="../index.html?genero=animes" class="filtro filtro-full">Animes</a>
+  </div>
+
+  <div class="seccion-label">Géneros</div>
+  <div class="grid-filtros">
+    <a href="../index.html?genero=accion" class="filtro">Acción</a>
+    <a href="../index.html?genero=aventura" class="filtro">Aventura</a>
+    <a href="../index.html?genero=ciencia ficcion" class="filtro">C. Ficción</a>
+    <a href="../index.html?genero=comedia" class="filtro">Comedia</a>
+    <a href="../index.html?genero=drama" class="filtro">Drama</a>
+    <a href="../index.html?genero=terror" class="filtro">Terror</a>
+    <a href="../index.html?genero=suspenso" class="filtro">Suspenso</a>
+    <a href="../index.html?genero=romance" class="filtro">Romance</a>
+    <a href="../index.html?genero=fantasia" class="filtro">Fantasía</a>
+    <a href="../index.html?genero=crimen" class="filtro">Crimen</a>
+    <a href="../index.html?genero=misterio" class="filtro">Misterio</a>
+  </div>
+</nav>
+
+<main class="main-container">
+  <div class="movie-header">
+    <span class="badge">Streaming HD Premium</span>
+    <h1 id="peli-titulo">Los Rose</h1>
+  </div>
+
+  <div class="player-wrapper">
+    <div class="iframe-container">
+<IFRAME SRC="https://fastream.to/embed-a5tltdqqkag0.html" FRAMEBORDER=0 allowfullscreen></IFRAME>
+    </div>
+  </div>
+
+  <div class="relacionadas-container">
+    <div class="seccion-titulo">Recomendados para ti</div>
+    <div class="grid-relacionadas" id="relacionadas-box"></div>
+  </div>
+</main>
+
+<script>
+  // 1. CONFIGURACIÓN DE LA PELÍCULA ACTUAL (Actualizado con nuevos géneros)
+  const PELI_ACTUAL_TITULO = "Los Rose"; 
+  const PELI_ACTUAL_GENEROS = ["comedia", "drama"]; 
+
+  // 2. BUSCADOR INTEGRADO (Envía la búsqueda al index)
+  const buscador = document.getElementById('buscador');
+  buscador.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      const query = buscador.value.trim();
+      if(query) window.location.href = `../index.html?search=${encodeURIComponent(query)}`;
+    }
+  });
+
+  // 3. LÓGICA DEL MENÚ
+  const menu = document.getElementById('menu');
+  const overlay = document.getElementById('overlay');
+  const btnMenu = document.getElementById('btnMenu');
+
+  btnMenu.onclick = () => { menu.classList.add('active'); overlay.style.display = 'block'; };
+  overlay.onclick = () => { menu.classList.remove('active'); overlay.style.display = 'none'; };
+
+  // 4. RECOMENDACIONES (3 móvil / 12 PC)
+  async function cargarRelacionadas() {
+    const contenedor = document.getElementById('relacionadas-box');
+    const rutasJson = ["../peliculas.json", "../series.json", "../animes.json"];
+    
+    try {
+      const peticiones = rutasJson.map(ruta => fetch(ruta).then(res => res.ok ? res.json() : []).catch(() => []));
+      const resultados = await Promise.all(peticiones);
+      const baseDatos = resultados.flat();
+
+      let similares = baseDatos.filter(item => {
+        let gens = Array.isArray(item.genero) ? item.genero.map(g => g.toLowerCase().trim()) : [item.genero.toLowerCase()];
+        const coincide = PELI_ACTUAL_GENEROS.some(g => gens.includes(g.toLowerCase()));
+        return coincide && item.titulo !== PELI_ACTUAL_TITULO;
+      });
+
+      // Si no hay suficientes similares, rellenar con aleatorios
+      if (similares.length < 12) {
+        const extras = baseDatos.filter(item => item.titulo !== PELI_ACTUAL_TITULO && !similares.includes(item));
+        similares = [...similares, ...extras];
+      }
+
+      similares.sort(() => 0.5 - Math.random());
+      const cantidad = window.innerWidth < 600 ? 6 : 12; 
+      const seleccion = similares.slice(0, cantidad);
+
+      contenedor.innerHTML = "";
+      seleccion.forEach(p => {
+        const card = document.createElement('a');
+        card.className = 'card-mini';
+        let linkFinal = p.url;
+        if (!p.url.startsWith("http") && !p.url.startsWith("../")) { linkFinal = "../" + p.url; }
+        card.href = linkFinal;
+        card.innerHTML = `
+          <img src="${p.imagen}" alt="${p.titulo}" loading="lazy" onerror="this.src='https://via.placeholder.com/200x300?text=CineStream'">
+          <div class="info-mini"><h5>${p.titulo}</h5></div>`;
+        contenedor.appendChild(card);
+      });
+    } catch (e) { console.error(e); }
+  }
+
+  window.addEventListener('DOMContentLoaded', cargarRelacionadas);
+  // Recargar si cambian el tamaño de la pantalla
+  let t; window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(cargarRelacionadas, 300); });
+</script>
+
+</body>
+</html>
