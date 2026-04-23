@@ -1,0 +1,8 @@
+{  "sources": [
+    "las.json",
+    "peliculas.json",
+    "series.json",
+    "pos.json", 
+    "animes.json"
+  ]
+}
