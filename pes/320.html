@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Primate</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #96BB54;
+      --bg-dark: #070817;
+      --bg-card: #121430;
+      --accent: #e67e22;
+      --text-main: #ffffff;
+      --glass: rgba(255, 255, 255, 0.05);
+      --transition-fast: all 0.3s ease;
+      --transition-menu: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+    body { background-color: var(--bg-dark); color: var(--text-main); overflow-x: hidden; text-align: center; }
+
+    header {
+      position: sticky; top: 0; z-index: 1100;
+      background: rgba(7, 8, 23, 0.95); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+      padding: 10px 4%; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--glass);
+    }
+    .logo-link { text-decoration: none; color: var(--primary); font-weight: 800; font-size: 1.2rem; display: none; }
+    @media (min-width: 768px) { .logo-link { display: block; } }
+
+    .search-container { flex: 1; }
+    .buscador {
+      width: 100%; background: var(--glass); border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 12px 20px; border-radius: 50px; color: white; outline: none; font-size: 16px;
+    }
+
+    #menu { 
+      position: fixed; top: 0; left: -105%; width: 85%; max-width: 320px; height: 100vh; 
+      background: var(--bg-card); z-index: 2000; padding: 30px 20px; transition: var(--transition-menu); 
+      overflow-y: auto; text-align: left; border-right: 1px solid var(--glass);
+    }
+    #menu.active { left: 0; }
+    #overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 1500; backdrop-filter: blur(5px); }
+    
+    .seccion-label { font-size: 0.7rem; color: var(--primary); font-weight: 800; text-transform: uppercase; margin: 25px 0 15px 5px; letter-spacing: 1.5px; opacity: 0.7; }
+    .grid-filtros { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .filtro { 
+      padding: 12px; background: var(--glass); border-radius: 8px; color: #eee; 
+      text-decoration: none; display: block; font-size: 0.8rem; transition: 0.3s; text-align: center;
+    }
+    .filtro:hover { background: var(--primary); color: #000; font-weight: 700; }
+    .filtro-full { grid-column: 1 / -1; }
+
+    .main-container { display: flex; flex-direction: column; align-items: center; padding: 20px 4% 50px; width: 100%; }
+    h1 { font-size: clamp(1.4rem, 5vw, 2.2rem); font-weight: 800; margin-bottom: 20px; background: linear-gradient(to right, #fff, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+    .selector-container { width: 100%; max-width: 300px; margin-bottom: 25px; position: relative; }
+    .custom-select { position: relative; width: 100%; }
+    .select-trigger {
+        width: 100%; padding: 12px; background: var(--bg-card); border: 1px solid var(--glass);
+        color: white; border-radius: 12px; font-weight: 700; font-size: 0.9rem;
+        display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.3s;
+    }
+    .select-trigger:after { content: '▼'; font-size: 0.7rem; color: var(--primary); margin-left: 10px; transition: 0.3s; }
+    .custom-select.active .select-trigger:after { transform: rotate(180deg); }
+
+    .select-options {
+        position: absolute; top: 110%; left: 0; width: 100%;
+        background: #161935; border: 1px solid var(--primary); border-radius: 12px;
+        z-index: 1000; overflow: hidden; max-height: 0; opacity: 0; pointer-events: none;
+        transition: max-height 0.4s ease, opacity 0.3s ease;
+    }
+    .custom-select.active .select-options { max-height: 400px; opacity: 1; pointer-events: auto; }
+    .option-item { width: 100%; padding: 14px; background: none; border: none; color: white; text-align: center; cursor: pointer; font-size: 0.9rem; border-bottom: 1px solid var(--glass); }
+    .option-item:hover { background: var(--primary); color: black; }
+
+    .player-wrapper { 
+      width: 100%; max-width: 1100px; background: #000; position: relative; 
+      box-shadow: 0 20px 50px rgba(0,0,0,0.8); margin: 0 auto 40px; 
+      border-radius: 12px; overflow: hidden; border: 1px solid var(--glass); 
+    }
+    .iframe-container { position: relative; width: 100%; padding-bottom: 90%; height: 0; display: none; }
+    @media (min-width: 1024px) { .iframe-container { padding-bottom: 0; height: 550px; } }
+    .iframe-container.active { display: block; }
+    .iframe-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+
+    .relacionadas-container { width: 100%; max-width: 1100px; text-align: left; margin-top: 20px; }
+    .seccion-titulo { font-size: 0.9rem; font-weight: 700; color: var(--primary); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; text-transform: uppercase; }
+    .seccion-titulo::after { content: ""; flex: 1; height: 1px; background: var(--glass); }
+    .grid-relacionadas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    @media (min-width: 1024px) { .grid-relacionadas { grid-template-columns: repeat(6, 1fr); gap: 20px; } }
+    .card-mini { background: var(--bg-card); border-radius: 8px; overflow: hidden; text-decoration: none; border: 1px solid var(--glass); position: relative; transition: 0.3s; display: block;}
+    .card-mini img { width: 100%; aspect-ratio: 2/3; object-fit: cover; display: block; }
+    .info-mini { padding: 8px 5px; background: linear-gradient(transparent, rgba(0,0,0,0.9)); position: absolute; bottom: 0; width: 100%; }
+    .info-mini h5 { color: #fff; font-size: 0.65rem; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div id="btnMenu" style="cursor:pointer; padding: 5px;"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M3 12h18M3 6h18M3 18h18"/></svg></div>
+  <a href="../index.html" class="logo-link">CineStream</a>
+  <div class="search-container">
+    <input type="search" id="buscador" class="buscador" placeholder="Buscar...">
+  </div>
+</header>
+
+<div id="overlay"></div>
+
+<nav id="menu">
+  <h2 style="color:var(--primary); font-weight: 800; margin-bottom: 20px;">CineStream</h2>
+  <div class="seccion-label">Navegación</div>
+  <div class="grid-filtros">
+    <a href="../index.html" class="filtro filtro-full">Explorar Todo</a>
+    <a href="../index.html?genero=peliculas" class="filtro">Películas</a>
+    <a href="../index.html?genero=series" class="filtro">Series</a>
+    <a href="../index.html?genero=animes" class="filtro filtro-full">Animes</a>
+  </div>
+  <div class="seccion-label">Géneros</div>
+  <div class="grid-filtros">
+    <a href="../index.html?genero=accion" class="filtro">Acción</a>
+    <a href="../index.html?genero=aventura" class="filtro">Aventura</a>
+    <a href="../index.html?genero=ciencia ficcion" class="filtro">C. Ficción</a>
+    <a href="../index.html?genero=comedia" class="filtro">Comedia</a>
+    <a href="../index.html?genero=drama" class="filtro">Drama</a>
+    <a href="../index.html?genero=terror" class="filtro">Terror</a>
+    <a href="../index.html?genero=suspenso" class="filtro">Suspenso</a>
+    <a href="../index.html?genero=romance" class="filtro">Romance</a>
+    <a href="../index.html?genero=fantasia" class="filtro">Fantasía</a>
+    <a href="../index.html?genero=crimen" class="filtro">Crimen</a>
+    <a href="../index.html?genero=misterio" class="filtro">Misterio</a>
+  </div>
+</nav>
+
+<main class="main-container">
+  <h1>Primate</h1>
+
+  <div class="selector-container">
+    <div class="custom-select" id="serverSelect">
+      <div class="select-trigger" onclick="toggleSelect()"><span id="currentServerLabel">SERVER 1</span></div>
+      <div class="select-options">
+        <button class="option-item" onclick="cambiarServer(1, 'SERVER 1')">SERVER 1</button>
+        <button class="option-item" onclick="cambiarServer(2, 'SERVER 2')">SERVER 2</button>
+        <button class="option-item" onclick="cambiarServer(3, 'SERVER 3')">SERVER 3</button>
+        <button class="option-item" onclick="cambiarServer(4, 'SERVER 4')">SERVER 4</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="player-wrapper">
+    <div class="iframe-container active" id="server1">
+      <iframe src="https://fastream.to/embed-jpdfqpx1vhso.html" allow="autoplay; encrypted-media" referrerpolicy="no-referrer"  allowfullscreen></iframe>
+    </div>
+        <div class="iframe-container" id="server2">
+      <iframe src="https://guxhag.com/e/e7ybcg419g7l" allow="autoplay; encrypted-media" referrerpolicy="no-referrer"  allowfullscreen></iframe>
+    </div>
+        <div class="iframe-container" id="server3">
+      <iframe src="https://bysejikuar.com/e/3vqh9735hkea" allow="autoplay; encrypted-media" referrerpolicy="no-referrer"  allowfullscreen></iframe>
+    </div>
+    <div class="iframe-container" id="server4">
+      <iframe data-src="https://callistanise.com/v/mzu8qx2rovea" allow="autoplay; encrypted-media" referrerpolicy="no-referrer"  allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <div class="relacionadas-container">
+    <div class="seccion-titulo">Recomendados para ti</div>
+    <div class="grid-relacionadas" id="relacionadas-box"></div>
+  </div>
+</main>
+
+<script>
+  // BUSCADOR ENLAZADO AL INDEX
+  document.getElementById('buscador').addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+      const q = e.target.value.trim();
+      if (q) window.location.href = `../index.html?search=${encodeURIComponent(q)}`;
+    }
+  });
+
+  // SELECTOR SERVIDORES
+  function toggleSelect() { document.getElementById('serverSelect').classList.toggle('active'); }
+  function cambiarServer(num, label) {
+    document.getElementById('currentServerLabel').innerText = label;
+    document.getElementById('serverSelect').classList.remove('active');
+    document.querySelectorAll('.iframe-container').forEach(cont => {
+      cont.classList.remove('active');
+      const ifr = cont.querySelector('iframe');
+      if(ifr && !ifr.getAttribute('data-src')) ifr.setAttribute('data-src', ifr.src);
+      if(ifr) ifr.src = "about:blank"; 
+    });
+    const activo = document.getElementById('server' + num);
+    if(activo) {
+        activo.classList.add('active');
+        const ifrActivo = activo.querySelector('iframe');
+        ifrActivo.src = ifrActivo.getAttribute('data-src');
+    }
+  }
+
+  // MENÚ
+  const menu = document.getElementById('menu'), overlay = document.getElementById('overlay'), btnMenu = document.getElementById('btnMenu');
+  btnMenu.onclick = () => { menu.classList.add('active'); overlay.style.display = 'block'; };
+  overlay.onclick = () => { menu.classList.remove('active'); overlay.style.display = 'none'; };
+
+  // RECOMENDADOS
+  async function cargarRelacionadas() {
+    const contenedor = document.getElementById('relacionadas-box');
+    const rutas = ["../peliculas.json", "../pos.json", "../las.json", "../series.json", "../animes.json"];
+    try {
+      const responses = await Promise.all(rutas.map(r => fetch(r).then(res => res.json()).catch(() => [])));
+      const data = responses.flat().sort(() => 0.5 - Math.random());
+      const esPC = window.innerWidth >= 1024;
+      const seleccion = data.slice(0, esPC ? 6 : 6); 
+      contenedor.innerHTML = seleccion.map(p => `
+        <a href="../${p.url}" class="card-mini">
+          <img src="${p.imagen}" loading="lazy">
+          <div class="info-mini"><h5>${p.titulo}</h5></div>
+        </a>
+      `).join('');
+    } catch (e) { console.error(e); }
+  }
+  window.addEventListener('DOMContentLoaded', cargarRelacionadas);
+</script>
+</body>
+</html>
