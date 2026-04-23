@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kenja no mago</title>
+  <link rel="stylesheet" href="style">
+  <style>
+    body {
+      background: #0b0c2a;
+    }
+    h4 {
+      text-align: center;
+      color: #96BB54;
+    }
+    .contenedor {
+      text-align: center;
+    }
+    #videoFrame {
+      border-radius: 12px;
+    }
+    .responsive-iframe-container {
+      aspect-ratio: 16 / 9;
+      max-width: 980px;
+      margin: 0 auto;
+      overflow: hidden;
+      border-radius: 12px;
+    }
+    .responsive-iframe-container iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+      border-radius: 12px;
+    }
+    .contenedor {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin: 10px auto;
+      max-width: 100%;
+      padding: 0 10px;
+    }
+    .boton {
+      display: inline-block;
+      padding: 10px 16px;
+      font-size: 14px;
+      text-align: center;
+      background-color: #2c3e50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      min-width: 80px;
+      flex: 1 1 auto;
+      margin: 10px;
+    }
+    .boton:hover {
+      background-color: #1abc9c;
+    }
+    .boton.anterior,
+    .boton.siguiente {
+      background-color: #34495e;
+    }
+    @media (max-width: 600px) {
+      .boton {
+        font-size: 12px;
+        padding: 8px 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h4 id="titulo"></h4>
+
+  <div class="responsive-iframe-container">
+    <iframe id="videoFrame" src="" allowfullscreen></iframe>
+  </div>
+
+  <div id="temporada1" class="contenedor">
+    <a href="../index.html" class="boton ep">Películas</a>
+    <div id="episodios1"></div>
+    <div class="navegacion">
+      <a href="#" class="boton anterior" onclick="cambiarPagina(-1)">⟨ Anterior</a>
+      <a href="#" class="boton siguiente" onclick="cambiarPagina(1)">Siguiente ⟩</a>
+    </div>
+  </div>
+
+<script>
+  const episodioPorPagina = 6;
+  let paginaActual = 0;
+
+  const enlaces = {
+    1: "https://www.tokyvideo.com/es/embed/594481",
+    2: "https://www.tokyvideo.com/es/embed/594593",
+    3: "https://www.tokyvideo.com/es/embed/594596",
+    4: "https://www.tokyvideo.com/es/embed/594603",
+    5: "https://www.tokyvideo.com/es/embed/594604",
+    6: "https://www.tokyvideo.com/es/embed/594605",
+    7: "https://www.tokyvideo.com/es/embed/594609",
+    8: "https://www.tokyvideo.com/es/embed/594611",
+    9: "https://www.tokyvideo.com/es/embed/594613",
+    10: "https://www.tokyvideo.com/es/embed/594922",
+    11: "https://www.tokyvideo.com/es/embed/594923",
+    12: "https://www.tokyvideo.com/es/embed/594924",
+  };
+
+  function generarBotones() {
+    const contenedor = document.getElementById("episodios1");
+    for (let i = 1; i <= 12; i++) {
+      const btn = document.createElement("a");
+      btn.href = "#";
+      btn.className = "boton ep";
+      btn.textContent = `Ep ${String(i).padStart(2, '0')}`;
+      btn.onclick = () => cargarEpisodio(i);
+      contenedor.appendChild(btn);
+    }
+    actualizarBotones();
+  }
+
+  function cargarEpisodio(num) {
+    const iframe = document.getElementById("videoFrame");
+    iframe.src = enlaces[num];
+    document.getElementById("titulo").textContent = `Kenja no mago  T1 Ep ${num}`;
+  }
+
+  function actualizarBotones() {
+    const contenedor = document.getElementById("episodios1");
+    const botones = contenedor.querySelectorAll(".boton.ep");
+    const total = botones.length;
+    const inicio = paginaActual * episodioPorPagina;
+    const fin = inicio + episodioPorPagina;
+
+    botones.forEach((btn, i) => {
+      btn.style.display = i >= inicio && i < fin ? "inline-block" : "none";
+    });
+
+    document.querySelector(".anterior").style.display = paginaActual > 0 ? "inline-block" : "none";
+    document.querySelector(".siguiente").style.display = fin < total ? "inline-block" : "none";
+  }
+
+  function cambiarPagina(direccion) {
+    const totalBotones = document.querySelectorAll("#episodios1 .boton.ep").length;
+    const maxPaginas = Math.ceil(totalBotones / episodioPorPagina);
+    const nuevaPagina = paginaActual + direccion;
+    if (nuevaPagina >= 0 && nuevaPagina < maxPaginas) {
+      paginaActual = nuevaPagina;
+      actualizarBotones();
+    }
+  }
+
+  window.onload = () => {
+    generarBotones();
+    cargarEpisodio(1); // Carga automáticamente el episodio 1 al inicio
+  };
+</script>
+
+</body>
+</html>
