@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>From</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #96BB54;
+      --bg-dark: #070817;
+      --bg-card: #121430;
+      --accent: #e67e22;
+      --text-main: #ffffff;
+      --glass: rgba(255, 255, 255, 0.05);
+      --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+    body { background-color: var(--bg-dark); color: var(--text-main); overflow-x: hidden; text-align: center; }
+
+    /* HEADER */
+    header {
+      position: sticky; top: 0; z-index: 1100;
+      background: rgba(7, 8, 23, 0.95); backdrop-filter: blur(15px);
+      padding: 10px 4%; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--glass);
+    }
+    .logo-link { text-decoration: none; color: var(--primary); font-weight: 800; font-size: 1.2rem; display: none; }
+    @media (min-width: 768px) { .logo-link { display: block; } }
+
+    .search-container { flex: 1; }
+    .buscador {
+      width: 100%; background: var(--glass); border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 10px 20px; border-radius: 50px; color: white; outline: none; font-size: 15px;
+    }
+
+    /* MENU LATERAL */
+    #menu { 
+      position: fixed; top: 0; left: -105%; width: 85%; max-width: 320px; height: 100vh; 
+      background: var(--bg-card); z-index: 2000; padding: 30px 20px; transition: var(--transition); 
+      overflow-y: auto; text-align: left; border-right: 1px solid var(--glass);
+    }
+    #menu.active { left: 0; }
+    #overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 1500; backdrop-filter: blur(5px); }
+    
+    .seccion-label { font-size: 0.7rem; color: var(--primary); font-weight: 800; text-transform: uppercase; margin: 25px 0 15px 5px; letter-spacing: 1.5px; opacity: 0.7; }
+    .grid-filtros { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .filtro { padding: 12px; background: var(--glass); border-radius: 8px; color: #eee; text-decoration: none; display: block; font-size: 0.8rem; transition: 0.3s; text-align: center; }
+    .filtro:hover { background: var(--primary); color: #000; }
+    .filtro-full { grid-column: 1 / -1; }
+
+    /* TITULO ORIGINAL */
+    .main-container { display: flex; flex-direction: column; align-items: center; padding: 15px 4% 50px; width: 100%; }
+    h1#titulo_display { 
+        font-size: clamp(1.1rem, 4vw, 1.8rem); font-weight: 800; margin-bottom: 15px;
+        background: linear-gradient(to right, #fff, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
+    /* PLAYER */
+    .player-wrapper { 
+        width: 100%; max-width: 1100px; background: #000; border-radius: 12px; overflow: hidden; 
+        box-shadow: 0 20px 50px rgba(0,0,0,0.8); border: 1px solid var(--glass);
+    }
+    .iframe-container { position: relative; padding-bottom: 90%; height: 0; }
+    @media (min-width: 1024px) { .iframe-container { padding-bottom: 0; height: 550px; } }
+    .iframe-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; display: none; }
+
+    /* SELECTORES LADO A LADO */
+    .selector-container { 
+        width: 100%; max-width: 1100px; margin: 15px 0; 
+        display: flex; flex-direction: row; gap: 10px; 
+    }
+    .custom-select { position: relative; flex: 1; }
+    .select-trigger {
+        width: 100%; padding: 14px; background: var(--bg-card); border: 1px solid var(--glass);
+        color: white; border-radius: 10px; font-weight: 700; font-size: 0.85rem;
+        display: flex; justify-content: center; align-items: center; cursor: pointer;
+    }
+    .select-trigger:after { content: '▼'; font-size: 0.6rem; color: var(--primary); margin-left: 8px; transition: 0.3s; }
+    .custom-select.active .select-trigger:after { transform: rotate(180deg); }
+
+    .select-options {
+        display: block; position: absolute; top: 115%; left: 0; width: 100%;
+        background: #161935; border: 1px solid var(--primary); border-radius: 10px;
+        z-index: 1000; overflow-y: auto; max-height: 200px;
+        opacity: 0; visibility: hidden; transform: translateY(-10px);
+        transition: var(--transition);
+    }
+    .custom-select.active .select-options { 
+        opacity: 1; visibility: visible; transform: translateY(0);
+    }
+    .option-item {
+        width: 100%; padding: 12px; background: none; border: none; color: white;
+        text-align: center; cursor: pointer; font-size: 0.85rem; border-bottom: 1px solid var(--glass);
+    }
+    .option-item:hover { background: var(--primary); color: black; }
+
+    /* GRID EPISODIOS */
+    .episodios-grid {
+      display: grid; 
+      grid-template-columns: repeat(4, 1fr); 
+      gap: 8px; 
+      width: 100%; 
+      max-width: 1100px; 
+      margin-top: 10px;
+      padding: 5px;
+    }
+
+    @media (min-width: 768px) { .episodios-grid { grid-template-columns: repeat(6, 1fr); } }
+
+    .ep-card { background: var(--bg-card); border-radius: 6px; overflow: hidden; cursor: pointer; border: 1.5px solid transparent; transition: 0.3s; }
+    .ep-card.activa { border-color: var(--accent); background: rgba(230, 126, 34, 0.1); }
+    .thumb { width: 100%; aspect-ratio: 16/9; object-fit: cover; pointer-events: none; }
+    .ep-info { padding: 6px 2px; text-align: center; font-size: 0.65rem; font-weight: 700; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div id="btnMenu" style="cursor:pointer; padding: 5px;"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M3 12h18M3 6h18M3 18h18"/></svg></div>
+  <a href="../index.html" class="logo-link">CineStream</a>
+  <div class="search-container">
+    <input type="search" id="buscador" class="buscador" placeholder="Buscar..." onkeypress="ejecutarBusqueda(event)">
+  </div>
+</header>
+
+<div id="overlay"></div>
+
+<nav id="menu">
+  <h2 style="color:var(--primary); font-weight: 800; margin-bottom: 20px;">CineStream</h2>
+  <div class="seccion-label">Navegación</div>
+  <div class="grid-filtros">
+    <a href="../index.html" class="filtro filtro-full">Explorar Todo</a>
+    <a href="../index.html?genero=peliculas" class="filtro">Películas</a>
+    <a href="../index.html?genero=series" class="filtro">Series</a>
+    <a href="../index.html?genero=animes" class="filtro filtro-full">Animes</a>
+  </div>
+  <div class="seccion-label">Géneros</div>
+  <div class="grid-filtros">
+    <a href="../index.html?genero=accion" class="filtro">Acción</a>
+    <a href="../index.html?genero=aventura" class="filtro">Aventura</a>
+    <a href="../index.html?genero=ciencia ficcion" class="filtro">C. Ficción</a>
+    <a href="../index.html?genero=comedia" class="filtro">Comedia</a>
+    <a href="../index.html?genero=drama" class="filtro">Drama</a>
+    <a href="../index.html?genero=terror" class="filtro">Terror</a>
+    <a href="../index.html?genero=suspenso" class="filtro">Suspenso</a>
+    <a href="../index.html?genero=romance" class="filtro">Romance</a>
+    <a href="../index.html?genero=fantasia" class="filtro">Fantasía</a>
+    <a href="../index.html?genero=misterio" class="filtro">Misterio</a>
+    <a href="../index.html?genero=crimen" class="filtro">Crimen</a>
+  </div>
+</nav>
+
+<main class="main-container">
+  <h1 id="titulo_display">From</h1>
+
+  <div class="player-wrapper">
+    <div class="iframe-container" id="player-container">
+        <iframe id="iframe_s1" FRAMEBORDER="0" allow="autoplay; encrypted-media" referrerpolicy="no-referrer" allowfullscreen></iframe>
+        <iframe id="iframe_s2" FRAMEBORDER="0" scrolling="yes"  allow="autoplay; encrypted-media" referrerpolicy="no-referrer" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <div class="selector-container">
+    <div class="custom-select" id="selectServer">
+        <div class="select-trigger" onclick="toggleSelect('selectServer')"><span id="currentServerText">SERVER 1</span></div>
+        <div class="select-options">
+            <button class="option-item" onclick="cambiarServer(1, 'SERVER 1')">SERVER 1</button>
+            <button class="option-item" onclick="cambiarServer(2, 'SERVER 2')">SERVER 2</button>
+        </div>
+    </div>
+    <div class="custom-select" id="selectTemp">
+        <div class="select-trigger" onclick="toggleSelect('selectTemp')"><span id="currentTempText">Temporada 1</span></div>
+        <div class="select-options">
+            <button class="option-item" onclick="mostrarTemporada(1, 'Temporada 1')">Temporada 1</button>
+            <button class="option-item" onclick="mostrarTemporada(2, 'Temporada 2')">Temporada 2</button>
+            <button class="option-item" onclick="mostrarTemporada(3, 'Temporada 3')">Temporada 3</button>
+            <button class="option-item" onclick="mostrarTemporada(4, 'Temporada 4')">Temporada 4</button>
+        </div>
+    </div>
+  </div>
+
+  <div id="grid-episodios" class="episodios-grid"></div>
+</main>
+
+<script>
+  // BUSCADOR ENLAZADO AL INDEX
+  function ejecutarBusqueda(event) {
+    if (event.key === 'Enter') {
+      const q = document.getElementById('buscador').value.trim();
+      if (q.length > 0) window.location.href = `../index.html?search=${encodeURIComponent(q)}`;
+    }
+  }
+
+  // MENÚ LATERAL
+  const menu = document.getElementById('menu'), overlay = document.getElementById('overlay'), btnMenu = document.getElementById('btnMenu');
+  btnMenu.onclick = () => { menu.classList.add('active'); overlay.style.display = 'block'; };
+  overlay.onclick = () => { menu.classList.remove('active'); overlay.style.display = 'none'; };
+
+  let tActual = 1, sActual = 1, epSeleccionadoIdx = 0;
+
+  const seriesDB = {
+    1: [
+      { n: 1, t: "https://i.postimg.cc/BnJ9QZjJ/from-1x1.jpg", s1: "https://goodstream.one/embed-8e4qyqquwiow.html", s2: "https://embed69.org/f/tt9813792-1x01" },
+      { n: 2, t: "https://i.postimg.cc/fRMnTWVZ/from-1x2.jpg", s1: "https://goodstream.one/embed-q6pp8d7wh4ll.html", s2: "https://embed69.org/f/tt9813792-1x02" },
+      { n: 3, t: "https://i.postimg.cc/7Zq8YP54/from-1x3.jpg", s1: "https://goodstream.one/embed-puj36rguf68r.html", s2: "https://embed69.org/f/tt9813792-1x03" },
+      { n: 4, t: "https://i.postimg.cc/4xXkN4Ys/from-1x4.jpg", s1: "https://goodstream.one/embed-otzfe7xpgw7x.html", s2: "https://embed69.org/f/tt9813792-1x04" },
+      { n: 5, t: "https://i.postimg.cc/4xXkN4YN/from-1x5.jpg", s1: "https://goodstream.one/embed-fw22c748bmkf.html", s2: "https://embed69.org/f/tt9813792-1x05" },
+      { n: 6, t: "https://i.postimg.cc/YCtKq2vS/from-1x6.jpg", s1: "https://goodstream.one/embed-t6kvgu2mxe3f.html", s2: "https://embed69.org/f/tt9813792-1x06" },
+      { n: 7, t: "https://i.postimg.cc/dVJPtQh1/from-1x7.jpg", s1: "https://goodstream.one/embed-xk7kzs3eiflp.html", s2: "https://embed69.org/f/tt9813792-1x07" },
+      { n: 8, t: "https://i.postimg.cc/pLPbXVmr/from-1x8.jpg", s1: "https://goodstream.one/embed-sxankqmbvfpe.html", s2: "https://embed69.org/f/tt9813792-1x08" },
+      { n: 9, t: "https://i.postimg.cc/vZGFH84c/from-1x9.jpg", s1: "https://goodstream.one/embed-ji031mdripfs.html", s2: "https://embed69.org/f/tt9813792-1x09" },
+      { n: 10, t: "https://i.postimg.cc/x19DTjXX/from-1x10.jpg", s1: "https://goodstream.one/embed-lk1g0u8auvc7.html", s2: "https://embed69.org/f/tt9813792-1x10" }
+    ],
+    2: [
+      { n: 1, t: "https://i.postimg.cc/gJqKgpH7/from-2x1.jpg", s1: "https://goodstream.one/embed-wbluj08v3kfx.html", s2: "https://embed69.org/f/tt9813792-2x01" },
+      { n: 2, t: "https://i.postimg.cc/1tcKvSr2/from-2x2.jpg", s1: "https://goodstream.one/embed-i2qsndrw92ku.html", s2:  "https://embed69.org/f/tt9813792-2x02" },
+      { n: 3, t: "https://i.postimg.cc/NM7xdtkV/from-2x3.jpg", s1: "https://goodstream.one/embed-vfx29j0vnwsy.html", s2: "https://embed69.org/f/tt9813792-2x03" },
+      { n: 4, t: "https://i.postimg.cc/d1m95Fjg/from-2x4.jpg", s1: "https://goodstream.one/embed-pgrxzhgl53l5.html", s2: "https://embed69.org/f/tt9813792-2x04" },
+      { n: 5, t: "https://i.postimg.cc/wvckwzQS/from-2x5.jpg", s1: "https://goodstream.one/embed-dokd9f5pg3at.html", s2: "https://embed69.org/f/tt9813792-2x05" },
+      { n: 6, t: "https://i.postimg.cc/G2JjXRxW/from-2x6.jpg", s1: "https://goodstream.one/embed-kr4mciawoofz.html", s2: "https://embed69.org/f/tt9813792-2x06" },
+      { n: 7, t: "https://i.postimg.cc/Y9fxd7xc/from-2x7.jpg", s1: "https://goodstream.one/embed-skamq9l75xp5.html", s2: "https://embed69.org/f/tt9813792-2x07" }, 
+      { n: 8, t: "https://i.postimg.cc/cHMcFWcy/from-2x8.jpg", s1: "https://goodstream.one/embed-0a08kls97lk2.html", s2: "https://embed69.org/f/tt9813792-2x08" }, 
+      { n: 9, t: "https://i.postimg.cc/JncQp8QC/from-2x9.jpg", s1: "https://goodstream.one/embed-5r4l2fx96lha.html", s2: "https://embed69.org/f/tt9813792-2x09" }, 
+      { n: 10, t: "https://i.postimg.cc/ydXTLKTz/from-2x10.jpg", s1: "https://goodstream.one/embed-4y9oit9ir0kw.html", s2: "https://embed69.org/f/tt9813792-2x10" }
+    ], 
+    3: [
+      { n: 1, t: "https://i.postimg.cc/05W3pGXq/from-3x1.jpg", s1: "https://goodstream.one/embed-9nsy9hmczuuw.html", s2: "https://embed69.org/f/tt9813792-3x01" },
+      { n: 2, t: "https://i.postimg.cc/kGbpJzQk/from-3x2.jpg", s1: "https://goodstream.one/embed-nj4vofpg7tib.html", s2: "https://embed69.org/f/tt9813792-3x02" },
+      { n: 3, t: "https://i.postimg.cc/d3yxsp2b/from-3x3.jpg", s1: "https://goodstream.one/embed-jid3f53u87z2.html", s2: "https://embed69.org/f/tt9813792-3x03" },
+      { n: 4, t: "https://i.postimg.cc/SRMvS36H/from-3x4.jpg", s1: "https://goodstream.one/embed-iet1ipo4sats.html", s2: "https://embed69.org/f/tt9813792-3x04" },
+      { n: 5, t: "https://i.postimg.cc/sxhNjqY8/from-3x5.jpg", s1: "https://goodstream.one/embed-hi929gbw0tpj.html", s2: "https://embed69.org/f/tt9813792-3x05" },
+      { n: 6, t: "https://i.postimg.cc/0jwBkFGs/from-3x6.jpg", s1: "https://goodstream.one/embed-kphinib372xo.html", s2: "https://embed69.org/f/tt9813792-3x06" },
+      { n: 7, t: "https://i.postimg.cc/6qvmWgVK/from-3x7.jpg", s1: "https://goodstream.one/embed-b5f3f8m2jdkc.html", s2: "https://embed69.org/f/tt9813792-3x07" }, 
+      { n: 8, t: "https://i.postimg.cc/D0XMvHQF/from-3x8.jpg", s1: "https://goodstream.one/embed-3qkcexsmvjp9.html", s2: "https://embed69.org/f/tt9813792-3x08" }, 
+      { n: 9, t: "https://i.postimg.cc/QCTy8wgj/from-3x9.jpg", s1: "https://goodstream.one/embed-stvpjj9l153a.html", s2: "https://embed69.org/f/tt9813792-3x09" }, 
+      { n: 10, t: "https://i.postimg.cc/XqCzjmKj/from-3x10.jpg", s1: "https://goodstream.one/embed-hs7ae6pah9vw.html", s2: "https://embed69.org/f/tt9813792-3x10" }
+    ], 
+    4: [
+      { n: 1, t: "https://i.postimg.cc/PJyd4C77/from-4x1.jpg", s1: "https://embed69.org/f/tt9813792-4x01", s2: "https://embed69.org/f/tt9813792-4x01" }, 
+      { n: 2, t: "https://i.postimg.cc/DwGDJLpg/from-4x2.jpg", s1: "https://embed69.org/f/tt9813792-4x02", s2: "https://embed69.org/f/tt9813792-4x02" }
+    ]
+  };
+
+  function toggleSelect(id) {
+    const el = document.getElementById(id);
+    const wasActive = el.classList.contains('active');
+    document.querySelectorAll('.custom-select').forEach(s => s.classList.remove('active'));
+    if(!wasActive) el.classList.add('active');
+  }
+
+  function mostrarTemporada(num, label) {
+    tActual = num; epSeleccionadoIdx = 0;
+    document.getElementById('currentTempText').innerText = label;
+    document.getElementById('selectTemp').classList.remove('active');
+    renderGrid(); cargarEpisodio(0);
+  }
+
+  function cambiarServer(num, label) {
+    sActual = num;
+    document.getElementById('currentServerText').innerText = label;
+    document.getElementById('selectServer').classList.remove('active');
+    cargarEpisodio(epSeleccionadoIdx);
+  }
+
+  function renderGrid() {
+    const grid = document.getElementById("grid-episodios"); grid.innerHTML = "";
+    seriesDB[tActual].forEach((ep, idx) => {
+      const card = document.createElement("div");
+      card.className = `ep-card ${idx === epSeleccionadoIdx ? 'activa' : ''}`;
+      card.onclick = () => cargarEpisodio(idx);
+      card.innerHTML = `<img src="${ep.t}" class="thumb" loading="lazy"><div class="ep-info">Episodio ${ep.n}</div>`;
+      grid.appendChild(card);
+    });
+  }
+
+  function cargarEpisodio(idx) {
+    epSeleccionadoIdx = idx; const ep = seriesDB[tActual][idx];
+    document.querySelectorAll('.ep-card').forEach((c, i) => i === idx ? c.classList.add('activa') : c.classList.remove('activa'));
+    document.getElementById("titulo_display").innerText = `From T${tActual} - Episodio ${ep.n}`;
+    document.querySelectorAll('.iframe-container iframe').forEach(f => { f.style.display = 'none'; f.src = ''; });
+    const iframeActivo = document.getElementById(`iframe_s${sActual}`);
+    if(iframeActivo) { 
+        iframeActivo.src = ep[`s${sActual}`] || ep.s1; 
+        iframeActivo.style.display = 'block'; 
+    }
+  }
+
+  window.onclick = (e) => { if (!e.target.closest('.custom-select')) document.querySelectorAll('.custom-select').forEach(s => s.classList.remove('active')); };
+  window.onload = () => mostrarTemporada(1, 'Temporada 1');
+</script>
+</body>
+</html>
