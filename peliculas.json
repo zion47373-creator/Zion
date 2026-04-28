@@ -1,0 +1,1101 @@
+[
+    {
+   "titulo":"El sonido de la muerte",
+    "imagen": "https://i.postimg.cc/2SP9Dh0M/352.jpg",
+    "url": "li/352.html",
+     "fecha": "2026",
+     "banner": "https://i.postimg.cc/bwBc2Z3S/6-banner.jpg",
+     "idioma": "la",
+     "duracion": "1h 40min",
+     "genero": ["misterio", "terror", "peliculas"]
+  },
+  {
+   "titulo":"Sesión fatal",
+    "imagen": "https://i.postimg.cc/BZgGmMrT/351.jpg",
+    "url": "li/351.html",
+     "fecha": "2026",
+     "banner": "https://i.postimg.cc/761y8VfH/5-banner.jpg",
+     "idioma": "la",
+     "duracion": "1h 17min",
+     "genero": ["suspenso", "peliculas"]
+  },
+  {
+   "titulo":"El engaño",
+    "imagen": "https://i.postimg.cc/Z5S86zs5/350.jpg",
+    "url": "li/350.html",
+     "fecha": "2026",
+     "banner": "https://i.postimg.cc/PqZVV9Rt/4-banner.jpg",
+     "idioma": "la",
+     "duracion": "1h 42min",
+     "genero": ["accion", "aventura", "peliculas"]
+  },
+  {
+   "titulo":"Acusada",
+    "imagen": "https://i.postimg.cc/pVwVXQsy/261.jpg",
+    "url": "pol/261.html",
+     "fecha": "2026",
+     "banner": "https://i.postimg.cc/RVtrPjQr/3-banner.jpg",
+     "idioma": "la",
+     "duracion": "1h 47min",
+     "genero": ["drama", "misterio", "suspenso", "peliculas"]
+  },
+  {
+     "titulo": "Pavana",
+    "imagen": "https://i.postimg.cc/N0TQm3yM/349.jpg",
+    "url": "li/349.html",
+     "fecha": "2026",
+     "banner": "https://i.postimg.cc/QxLwWFgL/2-banner.jpg",
+     "idioma": "la",
+     "duracion": "1h 53min",
+     "genero": ["drama", "romance", "peliculas"]
+  },
+  {
+     "titulo": "Cortafuego",
+    "imagen": "https://i.postimg.cc/CKR8jxY1/348.jpg",
+    "url": "li/348.html",
+     "fecha": "2026",
+     "banner": "https://i.postimg.cc/R0Yc8nGc/1-banner.jpg",
+     "idioma": "la",
+     "duracion": "1h 47min",
+     "genero": ["drama", "suspenso", "peliculas"]
+  },
+  {
+     "titulo": "El vínculo sueco",
+    "imagen": "https://i.postimg.cc/QNmJTr4B/347.jpg",
+    "url": "li/347.html",
+     "fecha": "2026",
+     "banner": "https://i.postimg.cc/FzCSnN8V/v.jpg",
+     "idioma": "la",
+     "duracion": "1h 42min",
+     "genero": ["drama", "peliculas"]
+  },
+  {
+     "titulo": "El tour universitario con Joe",
+    "imagen": "https://i.postimg.cc/8PGDByQ7/346.jpg",
+    "url": "li/346.html",
+     "fecha": "2026",
+     "banner": "https://i.postimg.cc/gcZkKXxT/w.jpg",
+     "idioma": "la",
+     "duracion": "1h 51min",
+     "genero": ["comedia", "peliculas"]
+  },
+  {
+      "titulo": "Ámame ámame",
+    "imagen": "https://i.postimg.cc/Gt1FSFG4/337.jpg",
+    "url": "li/337.html",
+     "fecha": "2026",
+     "banner": "https://i.postimg.cc/RVBdPBLG/Z.jpg",
+     "idioma": "la",
+     "duracion": "1h 39min",
+     "genero": ["drama", "romance", "peliculas"]
+  },
+  {
+      "titulo": "Una carta a mi juventud",
+    "imagen": "https://i.postimg.cc/N0Hx3j8s/331.jpg",
+    "url": "pes/331.html",
+     "fecha": "2026",
+     "banner": "https://i.postimg.cc/85Lt6zs9/r.jpg",
+     "idioma": "la",
+     "duracion": "2h 15min",
+     "genero": ["drama", "peliculas"]
+  },
+  {
+      "titulo": "La reina del ajedrez",
+    "imagen": "https://i.postimg.cc/cHLV7Yyk/330.jpg",
+    "url": "pes/330.html",
+     "fecha": "2026",
+     "banner": "https://i.postimg.cc/xTzBPn74/p.jpg",
+     "idioma": "la",
+     "duracion": "1h 34min",
+     "genero": ["peliculas"]
+  },
+    {
+      "titulo": "Uf Solo amigos",
+    "imagen": "https://i.postimg.cc/rs6VHjTK/329.jpg",
+    "url": "pes/329.html",
+     "fecha": "2026",
+     "banner": "https://i.postimg.cc/L6DqqdRf/o.jpg",
+     "idioma": "la",
+     "duracion": "1h 35min",
+     "genero": ["comedia", "romance", "peliculas"]
+  },
+  {
+      "titulo": "28 años después El templo de los huesos",
+    "imagen": "https://i.postimg.cc/Gtw7N5rb/29.jpg",
+    "url": "pelicula/29.html",
+     "fecha": "2026",
+     "banner": "https://i.postimg.cc/6pgdYGtg/l.jpg",
+     "idioma": "la",
+     "duracion" :"1h 34min",
+     "genero": ["ciencia ficcion", "suspenso", "terror", "peliculas"]
+  },
+  {
+    "titulo": "Los hermanos demolición",
+    "imagen": "https://i.postimg.cc/L8J2Vcbm/32.jpg",
+    "url": "pelicula/32.html",
+    "fecha": "2026",
+    "banner": "https://i.postimg.cc/wvX6mDbD/k.jpg",
+    "idioma": "la",
+    "duracion":"2h 04min",
+    "genero": ["accion", "comedia", "crimen", "misterio", "peliculas"]
+  },
+  {
+    "titulo": "Alerta extinción",
+    "imagen": "https://i.postimg.cc/MGXwG7qH/31.jpg",
+    "url": "pelicula/31.html",
+    "fecha": "2026",
+    "banner": "https://i.postimg.cc/hjxHJMw9/j.jpg",
+    "idioma": "la",
+    "duracion": "1h 39min",
+    "genero": ["ciencia ficcion", "comedia", "suspenso", "peliculas"]
+  },
+  {
+  "titulo": "El botín",
+  "imagen": "https://i.postimg.cc/rm6WR9Dj/325.jpg",
+  "url": "pes/325.html",
+  "fecha": "2026",
+  "banner": "https://i.postimg.cc/ZnXhJ079/i.jpg",
+  "idioma": "la",
+  "duracion": "1h 55min",
+  "genero": ["accion", "crimen", "suspenso", "peliculas"]
+},
+      {
+  "titulo": "Gente que conocemos en vacaciones",
+  "imagen": "https://i.postimg.cc/t4bvXp5m/324.jpg",
+  "url": "pes/324.html",
+  "fecha": "2026",
+  "banner": "https://i.postimg.cc/VvM48Vbb/h.jpg",
+  "idioma": "la",
+  "duracion": "1h 57min",
+  "genero": ["comedia", "drama", "romance", "peliculas"]
+},
+ {
+  "titulo": "La princesa Kaguya del cosmos",
+  "imagen": "https://i.postimg.cc/SxwsX1Xq/323.jpg",
+  "url": "pes/323.html",
+  "fecha": "2026",
+  "banner": "https://i.postimg.cc/4NVpNc2G/g.jpg",
+  "idioma": "la",
+  "genero": ["ciencia ficcion", "fantasia", "animes", "peliculas"]
+},
+   {
+  "titulo": "Sin piedad",
+  "imagen": "https://i.postimg.cc/59RMNYQX/322.jpg",
+  "url": "pes/322.html",
+  "fecha": "2026",
+  "banner": "https://i.postimg.cc/bwr1h5nb/f.jpg",
+  "idioma": "la",
+  "genero": ["accion", "ciencia ficcion", "suspenso", "peliculas"]
+},
+{
+  "titulo": "The Dutchman",
+  "imagen": "https://i.postimg.cc/T39xxkVx/321.jpg",
+  "url": "pes/321.html",
+  "fecha": "2026",
+  "banner": "https://i.postimg.cc/Wz9PctRG/e.jpg",
+  "idioma": "la",
+  "genero": ["drama", "suspenso", "peliculas"]
+},
+  {
+  "titulo": "Primate",
+  "imagen": "https://i.postimg.cc/vHtkx4cG/320.jpg",
+  "url": "pes/320.html",
+  "fecha": "2026",
+  "banner": "https://i.postimg.cc/HsHmcDWq/d.jpg",
+  "idioma": "la",
+  "genero": ["suspenso", "terror", "peliculas"]
+},
+{
+  "titulo": "Greenland 2",
+  "imagen": "https://i.postimg.cc/x8cbWbHX/319.jpg",
+  "url": "pes/319.html",
+  "fecha": "2026",
+  "banner": "https://i.postimg.cc/FRLwY7Xj/c.jpg",
+  "idioma": "la",
+  "genero": ["accion", "aventura", "ciencia ficcion", "suspenso", "peliculas"]
+},
+  {
+  "titulo": "Patrulla Nocturna",
+  "imagen": "https://i.postimg.cc/rsxr9RrG/318.jpg",
+  "url": "pes/318.html",
+  "fecha": "2026",
+  "banner": "https://i.postimg.cc/BvtrGmYs/b.jpg",
+  "idioma": "la",
+  "duracion": "1h 44min",
+  "genero": ["misterio", "terror", "peliculas"]
+},
+  {
+    "titulo": "El arte del diablo 2",
+    "imagen": "https://i.postimg.cc/Yq8jpMfc/184.jpg",
+    "url": "se/184.html",
+    "fecha": "2005",
+    "idioma": "la",
+    "genero": [ "misterio", "suspenso", "terror", "peliculas"]
+  },
+  {
+    "titulo": "La partida de go",
+    "imagen": "https://i.postimg.cc/RFDWP0Z1/183.jpg",
+    "url": "se/183.html",
+    "fecha": "2025",
+    "idioma": "la",
+    "genero": [ "drama", "peliculas"]
+  },
+  {
+    "titulo": "Hombre lobo",
+    "imagen": "https://i.postimg.cc/26K1H5Sv/182.jpg",
+    "url": "se/182.html",
+    "fecha": "2025",
+    "idioma": "la",
+    "genero": [ "terror", "suspenso", "peliculas"]
+  },
+  {
+    "titulo": "Mascotas al Rescate",
+    "imagen": "https://i.postimg.cc/mDG8TYBc/181.jpg",
+    "url": "se/181.html",
+    "fecha": "2025",
+    "idioma": "la",
+    "genero": [ "animes", "aventura", "comedia", "suspenso", "peliculas"]
+  },
+  {
+    "titulo": "It Capítulo 2",
+    "imagen": "https://i.postimg.cc/j528QS12/180.jpg",
+    "url": "se/180.html",
+    "fecha": "2019",
+    "idioma": "la",
+    "genero": ["terror", "peliculas"]
+  },
+     {
+  "titulo": "La casa de cera",
+  "imagen": "https://i.postimg.cc/g06JtxZg/179.jpg",
+  "url": "se/179.html",
+  "fecha": "2005",
+  "idioma": "la",
+  "genero": ["drama", "terror", "peliculas"]
+},
+  {
+    "titulo": "Estado electrico",
+    "imagen": "https://i.postimg.cc/XvxGCLM5/178.jpg",
+    "url": "se/178.html",
+    "fecha": "2025",
+    "idioma": "la",
+    "genero": [ "accion", "ciencia ficcion", "aventura", "peliculas"]
+  },
+  {
+    "titulo": "El diablo sobre hielo",
+    "imagen": "https://i.postimg.cc/GmC0pCwg/177.jpg",
+    "url": "peliculas anime/177.html",
+    "fecha": "2025",
+    "idioma": "la",
+    "genero": [ "accion", "suspenso", "peliculas"]
+  },
+{
+    "titulo": "John Carter",
+    "imagen": "https://i.postimg.cc/1zHjJr0H/176.jpg",
+    "url": "peliculas anime/176.html",
+    "fecha": "2012",
+    "idioma": "la",
+    "genero": [ "accion", "ciencia ficcion", "aventura", "peliculas"]
+  },
+  {
+    "titulo": "Algo embarazada",
+    "imagen": "https://i.postimg.cc/0Q344xLr/175.jpg",
+    "url": "peliculas anime/175.html",
+    "fecha": "2025",
+    "idioma": "la",
+    "genero": [ "comedia", "romance", "peliculas"]
+  },
+  {
+    "titulo": "3096 días",
+    "imagen": "https://i.postimg.cc/WbpCT6KK/174.jpg",
+    "url": "peliculas anime/174.html",
+    "fecha": "2013",
+    "idioma": "la",
+    "genero": ["drama", "peliculas"]
+  },
+    {
+    "titulo": "El tiempo contigo",
+    "imagen": "https://i.postimg.cc/T1hXV8wq/173.webp",
+    "url": "peliculas anime/173.html",
+    "fecha": "2019",
+    "idioma": "la",
+    "genero": [ "drama", "fantasia", "romance", "animes", "peliculas"]
+  },
+  {
+    "titulo": "El lobo de estepa",
+    "imagen": "https://i.postimg.cc/HkwhPYPJ/172.jpg",
+    "url": "peliculas anime/172.html",
+    "fecha": "2024",
+    "idioma": "la",
+    "genero": [ "suspenso", "peliculas"]
+  },
+  {
+    "titulo": " El contador",
+    "imagen": "https://i.postimg.cc/xTHJWwdD/171.jpg",
+    "url": "peliculas anime/171.html",
+    "fecha": "2016",
+    "idioma": "la",
+    "genero": [ "crimen", "drama", "suspenso", "peliculas"]
+  },
+{
+  "titulo": "Rapido y Furioso 3",
+  "imagen": "https://i.postimg.cc/2SRJmVhq/170.jpg",
+  "url": "peliculas anime/170.html",
+  "fecha": "2006",
+  "idioma": "la",
+  "genero": ["accion", "crimen", "drama", "suspenso", "peliculas"]
+},
+  {
+    "titulo": "Por eso lo llaman amor",
+    "imagen": "https://i.postimg.cc/DfXWY93r/169.jpg",
+    "url": "peliculas anime/169.html",
+    "fecha": "2017",
+    "idioma": "la",
+    "genero": [ "comedia", "dragon", "romance", "peliculas"]
+  },
+  {
+    "titulo": "Peligro en Bushwick",
+    "imagen": "https://i.postimg.cc/L8BxCtJv/168.jpg",
+    "url": "peliculas anime/168.html",
+    "fecha": "2017",
+    "idioma": "la",
+    "genero": [ "accion", "suspenso", "peliculas"]
+  },
+ {
+    "titulo": "Marco",
+    "imagen": "https://i.postimg.cc/B6JTFYhG/167.jpg",
+    "url": "peliculas anime/167.html",
+    "fecha": "2024",
+    "idioma": "es",
+    "genero": [ "accion", "crimen", "suspenso", "peliculas"]
+  },
+  {
+    "titulo": "Lolita",
+    "imagen": "https://i.postimg.cc/Gm35g4y0/166.jpg",
+    "url": "peliculas anime/166.html",
+    "fecha": "1997",
+    "idioma": "la",
+    "genero": [ "drama", "peliculas"]
+  },
+  {
+    "titulo": "Blindado",
+    "imagen": "https://i.postimg.cc/KjwyK36x/165.jpg",
+    "url": "peliculas anime/165.html",
+    "fecha": "2025",
+    "idioma": "la",
+    "genero": [ "suspenso", "terror", "peliculas"]
+  },
+  {
+    "titulo": "Five Nights at Freddys 2",
+    "imagen": "https://i.postimg.cc/FHg1mdbM/164.jpg",
+    "url": "peliculas anime/164.html",
+    "fecha": "2025",
+    "idioma": "la",
+    "genero": [ "suspenso", "terror", "peliculas"]
+  },
+  {
+    "titulo": "Vaya Navidad",
+    "imagen": "https://i.postimg.cc/dVmDvkRg/163.jpg",
+    "url": "peliculas anime/163.html",
+    "fecha": "2025",
+    "idioma": "la",
+    "genero": [ "comedia", "peliculas"]
+  },
+  {
+    "titulo": "La increible Jessica James",
+    "imagen": "https://i.postimg.cc/mgbBZKhJ/64.jpg",
+    "url": "peliculas anime/64.html",
+    "fecha": "2017",
+    "idioma": "la",
+    "genero": [ "comedia", "romance", "peliculas"]
+  },
+  {
+    "titulo": "La momia",
+    "imagen": "https://i.postimg.cc/nVDH3vyc/63.jpg",
+    "url": "peliculas anime/63.html",
+    "fecha": "2017",
+    "idioma": "la",
+    "genero": [ "accion", "aventura", "fantasia", "suspenso", "terror", "peliculas"]
+  },
+  {
+    "titulo": "El secreto de Santa",
+    "imagen": "https://i.postimg.cc/YSwXJ80J/62.jpg",
+    "url": "peliculas anime/62.html",
+    "fecha": "2025",
+    "idioma": "la",
+    "genero": [ "comedia", "romance", "peliculas"]
+  },
+  {
+    "titulo": "Refugio mortal",
+    "imagen": "https://i.postimg.cc/yY8WTzPK/61.jpg",
+    "url": "peliculas anime/61.html",
+    "fecha": "2025",
+    "idioma": "la",
+    "genero": [ "accion", "crimen", "suspenso", "peliculas"]
+  },
+  {
+    "titulo": "TRON: Ares",
+    "imagen": "https://i.postimg.cc/g2V0V7Hk/60.jpg",
+    "url": "peliculas anime/60.html",
+    "fecha": "2025",
+    "idioma": "la",
+    "genero": [ "accion", "aventura", "cuencia ficcion", "peliculas"]
+  },
+  {
+    "titulo": "Exorcismo: El Ritual",
+    "imagen": "https://i.postimg.cc/gjKztBvF/59.jpg",
+    "url": "peliculas anime/59.html",
+    "fecha": "2025",
+    "idioma": "la",
+    "genero": [ "drama", "suspenso", "terror", "peliculas"]
+  },
+  {
+    "titulo": "El ritual del Libro Rojo: Puertas del infierno",
+    "imagen": "https://i.postimg.cc/tTMGMQct/58.jpg",
+    "url": "peliculas anime/58.html",
+    "fecha": "2025",
+    "idioma": "la",
+    "genero": [ "terror", "peliculas"]
+  },
+  {
+    "titulo": "Todo de ti",
+    "imagen": "https://i.postimg.cc/brwf6Ygg/57.jpg",
+    "url": "peliculas anime/57.html",
+    "fecha": "2025",
+    "idioma": "la",
+    "genero": [ "drama", "romance", "peliculas"]
+  },
+   {
+    "titulo": "Siccin 8",
+    "imagen": "https://i.postimg.cc/xdJwNbZG/56.jpg",
+    "url": "peliculas anime/56.html",
+    "fecha": "2025",
+    "idioma": "la",
+    "genero": [ "terror", "peliculas"]
+  },
+   {
+    "titulo": "La hora de la desaparicion",
+    "imagen": "https://i.postimg.cc/wM7Px5c9/55.jpg",
+    "url": "peliculas anime/55.html",
+    "fecha": "2025",
+    "idioma": "la",
+    "genero": ["misterio", "terror", "peliculas"]
+  },
+  {
+    "titulo": "Batman y Harley Quinn",
+    "imagen": "https://i.postimg.cc/br84jycS/54.jpg",
+    "url": "peliculas anime/54.html",
+    "fecha": "2017",
+    "idioma": "la",
+    "genero": ["accion", "animes", "aventura", "peliculas"]
+  },
+   {
+    "titulo": "Mi Villano Favorito 3",
+    "imagen": "https://i.postimg.cc/wj863Kh9/53.jpg",
+    "url": "pelicula/53.html",
+    "fecha": "2017",
+    "idioma": "la",
+    "genero": ["accion", "animes", "aventura", "comedia", "peliculas"]
+  },
+  {
+    "titulo": "El amigo",
+    "imagen": "https://i.postimg.cc/7YDccQ9Y/52.jpg",
+    "url": "pelicula/52.html",
+    "fecha": "2021",
+    "idioma": "la",
+    "genero": ["comedia", "drama", "peliculas"]
+  },
+  {
+    "titulo": "31 Minutos Calurosa Navidad",
+    "imagen": "https://i.postimg.cc/dtWtrR9w/51.jpg",
+    "url": "pelicula/51.html",
+    "fecha": "2025",
+    "idioma": "la",
+    "genero": ["aventura","comedia", "animes", "peliculas"]
+  },
+  {
+    "titulo": "Sniper el fin del asesino",
+    "imagen": "https://i.postimg.cc/ryP6d9NJ/50.jpg",
+    "url": "pelicula/50.html",
+    "fecha": "2020",
+    "idioma": "la",
+    "genero": ["accion", "peliculas"]
+  },
+  {
+    "titulo": "Prisionero de guerra",
+    "imagen": "https://i.postimg.cc/L4DvPvps/49.jpg",
+    "url": "pelicula/49.html",
+    "fecha": "2025",
+    "idioma": "la",
+    "genero": ["accion", "suspenso", "peliculas"]
+  },
+  {
+    "titulo": "Oh Hi!",
+    "imagen": "https://i.postimg.cc/y6cvNBfn/48.jpg",
+    "url": "pelicula/48.html",
+    "fecha": "2025",
+      "idioma": "es",
+    "genero": ["comedia", "romance", "peliculas"]
+  },
+  {
+    "titulo": "Belen",
+    "imagen": "https://i.postimg.cc/3Nhr3nFW/47.jpg",
+    "url": "pelicula/47.html",
+    "fecha": "2025",
+      "idioma": "la",
+    "genero": [ "drama", "peliculas"]
+  },
+    {
+    "titulo": "Dracula",
+    "imagen": "https://i.postimg.cc/650VJPfK/46.jpg",
+    "url": "pelicula/46.html",
+    "fecha": "2025",
+      "idioma": "la",
+    "genero": ["drama", "fantasia", "romance", "terror", "peliculas"]
+  },
+  {
+    "titulo": "Los propietarios",
+    "imagen": "https://i.postimg.cc/QC0BPFDT/45.jpg",
+    "url": "pelicula/45.html",
+    "fecha": "2020",
+      "idioma": "la",
+    "genero": ["terror", "peliculas"]
+  },
+  {
+    "titulo": "Cuando El Cielo Se Equivoca",
+    "imagen": "https://i.postimg.cc/5th14nS5/44.jpg",
+    "url": "pelicula/44.html",
+    "fecha": "2025",
+      "idioma": "la",
+    "genero": ["comedia", "fantasia", "peliculas"]
+  },
+  {
+    "titulo": "Solo di que sí",
+    "imagen": "https://i.postimg.cc/8ccDjPF6/43.jpg",
+    "url": "pelicula/43.html",
+    "fecha": "2021",
+      "idioma": "la",
+    "genero": ["comedia", "romance", "peliculas"]
+  },
+  {
+    "titulo": "Un Ángel en Nuestras Vidas",
+    "imagen": "https://i.postimg.cc/MKQTgFpn/42.jpg",
+    "url": "pelicula/42.html",
+    "fecha": "2020",
+      "idioma": "la",
+    "genero": ["drama", "peliculas"]
+  },
+  {
+    "titulo": "Chainsaw Man La película El arco de Reze",
+    "imagen": "https://i.postimg.cc/0yDyhJXy/41.jpg",
+    "url": "pelicula/41.html",
+    "fecha": "2025",
+      "idioma": "la",
+    "genero": ["accion", "animes", "fantasia", "peliculas"]
+  },
+  {
+    "titulo": "Esa Cosa con Alas",
+    "imagen": "https://i.postimg.cc/Bbx4wwn2/40.jpg",
+    "url": "pelicula/40.html",
+    "fecha": "2025",
+      "idioma": "la",
+    "genero": ["drama", "peliculas"]
+  },
+  {
+    "titulo": "Terror En El Aire",
+    "imagen": "https://i.postimg.cc/bvjRgWy9/39.jpg",
+    "url": "pelicula/39.html",
+    "fecha": "2019",
+      "idioma": "la",
+    "genero": ["suspenso", "peliculas"]
+  },
+   {
+    "titulo": "Venom",
+    "imagen": "https://i.postimg.cc/CKVvqXnV/38.jpg",
+    "url": "pelicula/38.html",
+    "fecha": "2018",
+      "idioma": "la",
+    "genero": ["ciencia ficcion", "peliculas"]
+  },
+    {
+    "titulo": "Desaparecidas",
+    "imagen": "https://i.postimg.cc/mDC6qRx8/37.jpg",
+    "url": "pelicula/37.html",
+    "fecha": "2021",
+      "idioma": "la",
+    "genero": ["suspenso", "peliculas"]
+  },
+   {
+    "titulo": "El encanto del champan",
+    "imagen": "https://i.postimg.cc/nrzC73Nx/36.jpg",
+    "url": "pelicula/36.html",
+    "fecha": "2025",
+      "idioma": "la",
+    "genero": ["comedia", "romance", "peliculas"]
+  },
+  {
+    "titulo": "Fuerza Trueno",
+    "imagen": "https://i.postimg.cc/66ZbPmQS/35.jpg",
+    "url": "pelicula/35.html",
+    "fecha": "2021",
+      "idioma": "la",
+    "genero": ["accion", "aventura", "comedia", "fantasia", "peliculas"]
+  },
+ {
+    "titulo": "Ruega por nosotros",
+    "imagen": "https://i.postimg.cc/0jXfLDL1/34.jpg",
+    "url": "pelicula/34.html",
+    "fecha": "2021",
+      "idioma": "la",
+    "genero": ["terror" ,"peliculas"]
+  },
+  {
+    "titulo": "Años de sequía",
+    "imagen": "https://i.postimg.cc/PrNdGHBJ/33.jpg",
+    "url": "pelicula/33.html",
+    "fecha": "2021",
+    "idioma": "la",
+    "genero": ["crimen", "drama", "misterio", "suspenso", "peliculas"]
+  },
+    {
+    "titulo": "La porrista perfecta",
+    "imagen": "https://i.postimg.cc/DwqPXp6k/135.jpg",
+    "url": "pelicula/135.html",
+    "fecha": "2019",
+      "idioma": "la",
+    "genero": ["drama", "peliculas"]
+  },
+  {
+    "titulo": "Aléjate del ático",
+    "imagen": "https://i.postimg.cc/fTbWY7yN/132.jpg",
+    "url": "pelicula/132.html",
+    "fecha": "2021",
+    "idioma": "la",
+    "genero": ["terror", "peliculas" ]
+  },
+{
+    "titulo": "Muzzle City of Wolves",
+    "imagen": "https://i.postimg.cc/9fgD2kwZ/127.jpg",
+    "url": "peliculas anime/127.html",
+    "fecha": "2020",
+     "idioma": "la",
+    "genero": ["accion", "crimen", "peliculas"]
+  },
+    {
+    "titulo": "Babygirl Deseo Prohibido",
+    "imagen": "https://i.postimg.cc/zvjTVtTJ/126.jpg",
+    "url": "peliculas anime/126.html",
+    "fecha": "2024",
+     "idioma": "la",
+    "genero": ["drama", "peliculas"]
+  },
+  {
+    "titulo": "MEGAN 2.0",
+    "imagen": "https://i.postimg.cc/sgR1t9WN/160.jpg",
+    "url": "peliculas anime/160.html",
+    "fecha": "2025",
+      "idioma": "la",
+    "genero": ["peliculas", "accion", "suspenso"]
+  },
+  {
+    "titulo": "Como entrenar a tu dragon",
+    "imagen": "https://i.postimg.cc/htqhHbmp/154.jpg",
+    "url": "peliculas anime/154.html",
+    "fecha": "2025",
+      "idioma": "la",
+    "genero": ["peliculas", "accion", "fantasia"]
+  },
+  {
+    "titulo": "Karate Kid: Legends",
+    "imagen": "https://i.postimg.cc/sxypfdQb/115.jpg",
+    "url": "peliculas anime/115.html",
+    "fecha": "2025",
+      "idioma": "la",
+    "genero": ["acción", "películas", "drama", "aventura"]
+  },
+  {
+    "titulo": "Rider",
+    "imagen": "https://i.postimg.cc/KjNtRqtm/125.jpg",
+    "url": "peliculas anime/125.html",
+    "fecha": "2025",
+     "idioma": "es",
+     "genero": ["accion", "drama", "peliculas", "suspenso"]
+  },
+   {
+    "titulo": "El Conjuro 4 - ultimos ritos",
+    "imagen": "https://i.postimg.cc/8cHLjKLG/124.jpg",
+    "url": "peliculas anime/124.html",
+    "fecha": "2025",
+     "idioma": "la",
+     "genero": ["terror", "peliculas"]
+  },
+    {
+    "titulo": "Peter Pan: Pesadilla en Nunca Jamás",
+    "imagen": "https://i.postimg.cc/6q0Cyjnz/116.jpg",
+    "url": "peliculas anime/116.html",
+    "fecha": "2025",
+     "idioma": "la",
+     "genero": ["suspenso", "fantasia", "peliculas", "terror"]
+  },
+    {
+    "titulo": "Agencia Secreta de Control Mágico",
+    "imagen": "https://i.postimg.cc/ydG9JsKN/117.jpg",
+    "url": "peliculas anime/117.html",
+    "fecha": "2021",
+     "idioma": "la",
+     "genero": ["comedia", "fantasia", "peliculas"]
+  },
+  {
+    "titulo": "Gundala",
+    "imagen": "https://i.postimg.cc/nhztcJ31/118.jpg",
+    "url": "peliculas anime/118.html",
+    "fecha": "2019",
+     "idioma": "la",
+     "genero": ["crimen", "drama", "fantasia", "peliculas", "terror"]
+  },
+    {
+    "titulo": "28 años después",
+    "imagen": "https://i.postimg.cc/mkw7tXCn/119.jpg",
+    "url": "peliculas anime/119.html",
+    "fecha": "2025",
+     "idioma": "la",
+     "genero": ["ciencia ficcion", "suspenso", "terror", "peliculas"]
+  },
+    {
+    "titulo": "El asesino con ojos de corazón",
+    "imagen": "https://i.postimg.cc/QCbcH41P/120.jpg",
+    "url": "peliculas anime/120.html",
+    "fecha": "2025",
+     "idioma": "la",
+     "genero": ["comedia", "romance", "peliculas", "terror"]
+  },
+  {
+    "titulo": "Érase una vez en Queensk",
+    "imagen": "https://i.postimg.cc/D0QdD0H5/121.jpg",
+    "url": "peliculas anime/121.html",
+    "fecha":"2021",
+    "idioma": "la",
+     "genero": ["comedia", "drama", "peliculas"]
+  },
+  {
+    "titulo": "Las guerreras kpop",
+    "imagen": "https://i.postimg.cc/kgdDkFSj/158.jpg",
+    "url": "peliculas anime/158.html",
+    "fecha": "2025",
+      "idioma": "la",
+     "genero": ["accion", "animes", "comedia", "fantasia", "peliculas"]
+  },
+  {
+    "titulo": "Kaiju No. 8: Misión de reconocimiento",
+    "imagen": "https://i.postimg.cc/2Sf3PFWx/156.jpg",
+    "url": "peliculas anime/156.html",
+    "fecha": "2025",
+      "idioma": "la",
+    "genero": ["accion", "animes", "peliculas"]
+  },
+  {
+    "titulo": "Kayara. La guerrera del imperio Inca",
+    "imagen": "https://i.postimg.cc/QdrVRk7m/157.jpg",
+    "url": "peliculas anime/157.html",
+    "fecha": "2025",
+     "idioma": "la",
+    "genero": ["animes", "peliculas", "aventura"]
+  },
+  {
+    "titulo": "Valan Valle de los Ángeles",
+    "imagen": "https://i.postimg.cc/TwcH5TJn/122.jpg",
+    "url": "peliculas anime/122.html",
+    "fecha": "2019",
+      "idioma": "la",
+     "genero": ["crimen", "drama", "peliculas"]
+  },
+  {
+    "titulo": "Exorcismo en el séptimo día",
+    "imagen": "https://i.postimg.cc/vTWJtD6R/123.jpg",
+    "url": "peliculas anime/123.html",
+    "fecha": "2021",
+      "idioma": "la",
+     "genero": ["terror", "peliculas"]
+  },
+  {
+    "titulo": "Definitivamente tal vez",
+    "imagen": "https://i.postimg.cc/CdTkPcCY/142.jpg",
+    "url": "pelicula/142.html",
+    "fecha": "2008",
+     "idioma": "la",
+     "genero": ["comedia", "romance", "peliculas"]
+  },
+    {
+    "titulo": "Te veo",
+    "imagen": "https://i.postimg.cc/vmcDppYG/143.jpg",
+    "url": "pelicula/143.html",
+    "fecha": "2019",
+    "idioma": "la",
+     "genero": ["misterio", "suspenso", "terror", "peliculas"]
+  },
+   {
+    "titulo": "Demon Slayer: Kimetsu no Yaiba Castillo infinito",
+    "imagen": "https://i.postimg.cc/D0MYYPwL/146.jpg",
+    "url": "pelicula/146.html",
+    "fecha": "2025",
+    "idioma": "je",
+     "genero": ["accion", "fantasia", "suspenso", "animes", "peliculas"]
+  },
+  {
+    "titulo": "Alone Sola",
+    "imagen": "https://i.postimg.cc/jSp3nn87/147.jpg",
+    "url": "pelicula/147.html",
+    "fecha": "2020",
+     "idioma": "la",
+     "genero": ["drama", "suspenso", "terror", "peliculas"]
+  },
+  {
+    "titulo": "En el reino de las sombras",
+    "imagen": "https://i.postimg.cc/W1PtQ6ZD/150.jpg",
+    "url": "pelicula/150.html",
+    "fecha": "2025",
+    "idioma": "la",
+     "genero": ["aventura", "drama", "fantasia", "terror", "peliculas"]
+  },
+    {
+    "titulo": "Trol",
+    "imagen": "https://i.postimg.cc/5yBJ5KVR/65.jpg",
+    "url": "pelicula/65.html",
+    "fecha": "2022",
+      "idioma": "la",
+     "genero": ["accion", "aventura", "fantasia", "peliculas"]
+  },
+  {
+    "titulo": "Jay Kelly",
+    "imagen": "https://i.postimg.cc/PJWHbVjg/68.jpg",
+    "url": "se/68.html",
+    "fecha": "2025",
+    "idioma": "la",
+     "genero": ["drama", "comedia", "peliculas"]
+  },
+  {
+    "titulo": "Ramon y Ramon",
+    "imagen": "https://i.postimg.cc/zvCNw2N1/70.jpg",
+    "url": "se/70.html",
+    "fecha": "2025",
+      "idioma": "es",
+     "genero": ["drama", "peliculas"]
+  },
+    {
+    "titulo": "El otro Paris",
+    "imagen": "https://i.postimg.cc/RCKvzhHn/73.jpg",
+    "url": "se/73.html",
+    "fecha": "2025",
+      "idioma": "la",
+     "genero": ["comedia", "romance", "peliculas"]
+  },
+   {
+    "titulo": "El ultimo encargo",
+    "imagen": "https://i.postimg.cc/D0LDzGC7/83.jpg",
+    "url": "se/83.html",
+    "fecha": "2025",
+      "idioma": "la",
+     "genero": ["comedia", "accion", "crimen", "peliculas"]
+  },
+  {
+    "titulo": "Roofman",
+    "imagen": "https://i.postimg.cc/Y0yJjgR3/84.jpg",
+    "url": "se/84.html",
+    "fecha": "2025",
+      "idioma": "la",
+     "genero": ["comedia", "crimen", "drama", "peliculas"]
+  },
+  {
+    "titulo": "Guillermo Tell",
+    "imagen": "https://i.postimg.cc/2yhJ5WHz/85.jpg",
+    "url": "se/85.html",
+    "fecha": "2025",
+      "idioma": "la",
+     "genero": ["drama", "accion", "peliculas"]
+  },
+    {
+    "titulo": "Leyendas de los heroes Condor: Los valientes",
+    "imagen": "https://i.postimg.cc/mkCqr9d2/86.jpg",
+    "url": "se/86.html",
+    "fecha": "2025",
+      "idioma": "la",
+     "genero": ["accion", "drama", "peliculas"]
+  },
+  {
+    "titulo": "Jurassic World: El renacer",
+    "imagen": "https://i.postimg.cc/h4dNMFK7/88.jpg",
+    "url": "se/88.html",
+    "fecha": "2025",
+      "idioma": "la",
+     "genero": ["accion", "aventura", "ciencia ficcion", "peliculas"]
+  },
+   {
+    "titulo": "El diario de Greg Esto es el colmo",
+    "imagen": "https://i.postimg.cc/G3y6z0bv/90.jpg",
+    "url": "se/90.html",
+    "fecha": "2025",
+      "idioma": "la",
+     "genero": ["animes", "comedia", "peliculas"]
+  },
+  {
+    "titulo": "Siervos de Guerra",
+    "imagen": "https://i.postimg.cc/vZsw5Hv5/91.jpg",
+    "url": "se/91.html",
+    "fecha": "2019",
+      "idioma": "la",
+     "genero": ["suspenso", "peliculas"]
+  },
+    {
+    "titulo": "Osiris",
+    "imagen": "https://i.postimg.cc/7P2jXvq3/92.jpg",
+    "url": "se/92.html",
+    "fecha": "2025",
+      "idioma": "la",
+     "genero": ["accion", "ciencia ficcion", "terror", "peliculas"]
+  },
+   {
+    "titulo": "Souvenir",
+    "imagen": "https://i.postimg.cc/P5nF0pg2/93.jpg",
+    "url": "se/93.html",
+    "fecha": "2021",
+      "idioma": "la",
+     "genero": ["drama", "peliculas"]
+  },
+  {
+    "titulo": "Contigo a muerte",
+    "imagen": "https://i.postimg.cc/9Mf6rh9v/195.jpg",
+    "url": "lo/195.html",
+    "fecha": "2021",
+    "idioma": "la",
+    "genero": [ "drama", "romance", "suspenso", "peliculas"]
+  },
+  {
+    "titulo": "Vigilados",
+    "imagen": "https://i.postimg.cc/13Cpm37q/196.jpg",
+    "url": "lo/196.html",
+    "fecha": "2020",
+    "idioma": "la",
+    "genero": [ "drama", "terror", "peliculas"]
+  },
+  {
+    "titulo": "regreso al infierno",
+    "imagen": "https://i.postimg.cc/Ls1SzmYX/197.jpg",
+    "url": "lo/197.html",
+    "fecha": "2026",
+    "banner": "https://i.postimg.cc/XqyG3FkW/a.jpg",
+    "idioma": "la",
+    "duracion": "1h 46min",
+    "genero": [ "misterio","terror", "peliculas"]
+  },
+  {
+    "titulo": "Terror en alta mar",
+    "imagen": "https://i.postimg.cc/mrP1VYb0/198.jpg",
+    "url": "lo/198.html",
+    "fecha": "2020",
+    "idioma": "la",
+    "genero": [ "suspenso","terror", "peliculas"]
+  },
+  {
+    "titulo": "Guerra de rebeldes 2 la caceria",
+    "imagen": "https://i.postimg.cc/wjWzppXy/199.jpg",
+    "url": "lo/199.html",
+    "fecha": "2019",
+    "idioma": "la",
+    "genero": ["accion", "peliculas"]
+  },
+  {
+    "titulo": "Bailarina",
+    "imagen": "https://i.postimg.cc/L8fQ8ft4/200.jpg",
+    "url": "lo/200.html",
+    "fecha": "2025",
+    "idioma": "la",
+    "genero": [ "accion","crimen","suspenso", "peliculas"]
+  },
+  {
+    "titulo": "El profesor",
+    "imagen": "https://i.postimg.cc/nc6xjFBN/201.jpg",
+    "url": "lo/201.html",
+    "fecha": "2019",
+    "idioma": "la",
+    "genero": [ "drama","comedia", "peliculas"]
+  },
+    {
+    "titulo": "Operacion Panda: Mision Rescate",
+    "imagen": "https://i.postimg.cc/43n8W1QR/202.jpg",
+    "url": "lo/202.html",
+    "fecha": "2024",
+    "idioma": "la",
+    "genero": [ "accion","comedia", "peliculas"]
+  },
+  {
+    "titulo": "La niña de mis ojos",
+    "imagen": "https://i.postimg.cc/KzRDT5pG/203.jpg",
+    "url": "lo/203.html",
+    "fecha": "2025",
+    "idioma": "la",
+    "genero": [ "drama","comedia", "romance", "peliculas"]
+  },
+   {
+    "titulo": "El mismo dia contigo",
+    "imagen": "https://i.postimg.cc/qBmLGq4z/101.jpg",
+    "url": "se/101.html",
+    "fecha": "2025",
+      "idioma": "la",
+     "genero": ["comedia", "romance", "fantasia", "peliculas"]
+  },
+  {
+    "titulo": "Medicina mortal",
+    "imagen": "https://i.postimg.cc/Gm7rRjbY/102.jpg",
+    "url": "se/102.html",
+    "fecha": "2021",
+      "idioma": "la",
+     "genero": ["suspenso", "peliculas"]
+  },
+  {
+    "titulo": "Trust (Confianza)",
+    "imagen": "https://i.postimg.cc/J7TqQ0Mh/103.jpg",
+    "url": "se/103.html",
+    "fecha": "2025",
+      "idioma": "la",
+     "genero": ["suspenso", "peliculas"]
+  },
+  {
+    "titulo": "amor y vino",
+    "imagen":"https://i.postimg.cc/59P3myb0/104.jpg",
+    "url": "se/104.html",
+    "fecha": "2025",
+      "idioma": "la",
+     "genero": ["comedia", "romance", "peliculas"]
+  },
+  {
+    "titulo": "Robo en Los Suburbios",
+    "imagen": "https://i.postimg.cc/JzqcKPjg/105.jpg",
+    "url": "se/105.html",
+    "fecha": "2020",
+      "idioma": "la",
+     "genero": ["suspenso", "peliculas"]
+  },
+  {
+    "titulo": "Últimas noticias en Yuba County",
+    "imagen": "https://i.postimg.cc/Sxr7VDcw/106.jpg",
+    "url": "se/106.html",
+    "fecha": "2021",
+      "idioma": "la",
+     "genero": ["comedia", "crimen", "drama", "suspenso", "peliculas"]
+  },
+  {
+    "titulo": "Cómprame un revolver",
+    "imagen": "https://i.postimg.cc/0yfdZc7h/107.jpg",
+    "url": "se/107.html",
+    "fecha": "2018",
+      "idioma": "la",
+     "genero": ["drama", "peliculas"]
+  },
+    {
+    "titulo": "Sirat",
+    "imagen": "https://i.postimg.cc/ryhJ9sMW/108.jpg",
+    "url": "se/108.html",
+    "fecha": "2025",
+      "idioma": "es",
+     "genero": ["drama", "suspenso", "peliculas"]
+  }
+]
