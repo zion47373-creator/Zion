@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>CineStream | Premium</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="icon" href="banderas/icon.png" type="image/png">
+  <style>
+    :root {
+
+      --primary: #96BB54;
+
+      --primary-hover: #7da345;
+
+      --bg-dark: #070817;
+
+      --bg-card: #121430;
+
+      --text-main: #ffffff;
+
+      --text-muted: #a0a0a0;
+
+      --glass: rgba(255, 255, 255, 0.05);
+
+      --glass-hover: rgba(255, 255, 255, 0.1);
+
+      --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+      --transition-medium: 0.3s ease;
+
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+
+    
+    body { 
+      background-color: var(--bg-dark); 
+      color: var(--text-main); 
+      overflow-x: hidden;
+      line-height: 1.5;
+    }
+
+    /* Header Optimizado */
+    header {
+      position: sticky; 
+      top: 0; 
+      z-index: 1100;
+      background: rgba(7, 8, 23, 0.95); 
+      backdrop-filter: blur(15px);
+      padding: 12px 4%; 
+      display: flex; 
+      align-items: center; 
+      gap: 15px;
+      border-bottom: 1px solid var(--glass);
+    }
+
+    .search-container { flex: 1; max-width: 600px; }
+    
+    .buscador {
+      width: 100%; 
+      background: var(--glass); 
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 12px 20px; 
+      border-radius: 50px; 
+      color: white; 
+      outline: none; 
+      font-size: 15px;
+      transition: var(--transition-fast);
+    }
+    
+    .buscador:focus {
+      border-color: var(--primary);
+      background: rgba(150, 187, 84, 0.05);
+    }
+
+    .buscador::placeholder { color: var(--text-muted); }
+
+    /* Hero Slider Mejorado */
+    #hero-container { 
+      width: 100%; 
+      height: 50vh; 
+      min-height: 400px;
+      position: relative; 
+      overflow: hidden; 
+      background: #000; 
+    }
+    
+    .hero-slide {
+      position: absolute; 
+      inset: 0; 
+      opacity: 0; 
+      transition: opacity 1s ease;
+      background-size: cover; 
+      background-position: center;
+      display: flex; 
+      align-items: flex-end; 
+      padding: 0 5% 50px;
+    }
+    
+    .hero-slide.active { opacity: 1; }
+    
+    .hero-slide::before { 
+      content: ''; 
+      position: absolute; 
+      inset: 0; 
+      background: linear-gradient(to top, var(--bg-dark) 15%, transparent 60%, rgba(0,0,0,0.4));
+    }
+    
+    .hero-content { 
+      max-width: 700px; 
+      z-index: 2; 
+      position: relative;
+      transform: translateY(20px);
+      opacity: 0;
+      transition: all 0.8s ease 0.3s;
+    }
+    
+    .hero-slide.active .hero-content {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    
+    .hero-content h1 { 
+      font-size: clamp(1.8rem, 5vw, 3rem); 
+      font-weight: 800; 
+      margin-bottom: 12px; 
+      text-shadow: 0 2px 20px rgba(0,0,0,0.9);
+      line-height: 1.1;
+    }
+    
+    .hero-meta {
+      color: rgba(255,255,255,0.8);
+      font-size: 0.95rem;
+      margin-bottom: 15px;
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    
+    .badge-estreno { 
+      background: #e50914; 
+      color: #fff; 
+      padding: 5px 12px; 
+      border-radius: 4px; 
+      font-weight: 800; 
+      font-size: 11px; 
+      text-transform: uppercase; 
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .btn-hero { 
+      display: inline-flex; 
+      align-items: center;
+      gap: 8px;
+      background: var(--primary); 
+      color: #0b0c2a; 
+      padding: 14px 28px; 
+      border-radius: 8px; 
+      text-decoration: none; 
+      font-weight: 800; 
+      font-size: 0.95rem;
+      transition: var(--transition-fast);
+      border: none;
+      cursor: pointer;
+    }
+    
+    .btn-hero:hover {
+      background: var(--primary-hover);
+      transform: scale(1.02);
+    }
+
+    .slider-dots { 
+      position: absolute; 
+      bottom: 25px; 
+      right: 5%; 
+      display: flex; 
+      gap: 10px; 
+      z-index: 10; 
+    }
+    
+    .dot { 
+      width: 8px; 
+      height: 8px; 
+      background: rgba(255,255,255,0.3); 
+      border-radius: 50%; 
+      cursor: pointer; 
+      transition: var(--transition-fast);
+    }
+    
+    .dot:hover { background: rgba(255,255,255,0.6); }
+    .dot.active { 
+      background: var(--primary); 
+      width: 24px; 
+      border-radius: 12px; 
+    }
+
+    /* Grid Galería: 3x8 Mobile (24 items), 6x8 PC (48 items) */
+    .galeria { 
+      display: grid; 
+      grid-template-columns: repeat(3, 1fr); 
+      gap: 12px; 
+      padding: 20px 4%; 
+    }
+    
+    @media (min-width: 1024px) { 
+      .galeria { 
+        grid-template-columns: repeat(6, 1fr); 
+        gap: 20px; 
+        padding: 30px 5%; 
+      } 
+    }
+
+    /* Cards Optimizadas */
+    .pelicula {
+      background: var(--bg-card); 
+      border-radius: 12px; 
+      overflow: hidden;
+      position: relative; 
+      transition: all var(--transition-medium);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+      animation: fadeInCard 0.5s ease forwards; 
+      opacity: 0;
+      will-change: transform;
+    }
+    
+    @keyframes fadeInCard { 
+      from { opacity: 0; transform: translateY(15px) scale(0.98); } 
+      to { opacity: 1; transform: translateY(0) scale(1); } 
+    }
+    
+    .pelicula:hover { 
+      transform: translateY(-8px) scale(1.02); 
+      box-shadow: 0 12px 30px rgba(0,0,0,0.6); 
+      z-index: 10;
+    }
+    
+    .pelicula img.poster { 
+      width: 100%; 
+      aspect-ratio: 2/3; 
+      object-fit: cover; 
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    
+    .pelicula:hover img.poster {
+      transform: scale(1.05);
+    }
+    
+    .info { 
+      padding: 10px 8px; 
+      background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.7) 60%, transparent); 
+      position: absolute; 
+      bottom: 0; 
+      width: 100%;
+      transform: translateY(5px);
+      transition: var(--transition-fast);
+    }
+    
+    .pelicula:hover .info {
+      transform: translateY(0);
+      padding-bottom: 12px;
+    }
+    
+    .info h4 { 
+      font-size: 0.8rem; 
+      color: #ffffff; 
+      text-align: center; 
+      white-space: nowrap; 
+      overflow: hidden; 
+      text-overflow: ellipsis;
+      font-weight: 600;
+    }
+    
+    .fecha { 
+      position: absolute; 
+      top: 8px; 
+      left: 8px; 
+      background: var(--primary); 
+      color: #0b0c2a; 
+      font-size: 11px; 
+      font-weight: 800; 
+      padding: 4px 10px; 
+      border-radius: 6px; 
+      z-index: 3;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+    
+    .bandera { 
+      position: absolute; 
+      top: 8px; 
+      right: 8px; 
+      width: 24px; 
+      height: 24px; 
+      border-radius: 50%; 
+      object-fit: cover; 
+      border: 2px solid rgba(255,255,255,0.9);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+      z-index: 3; 
+    }
+
+    /* Menú Lateral Mejorado */
+    #menu { 
+      position: fixed; 
+      top: 0; 
+      left: -100%; 
+      width: 85%; 
+      max-width: 320px; 
+      height: 100vh; 
+      background: var(--bg-card); 
+      z-index: 2000; 
+      padding: 25px 20px; 
+      transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+      overflow-y: auto; 
+      border-right: 1px solid var(--glass);
+      box-shadow: 5px 0 30px rgba(0,0,0,0.5);
+    }
+    
+    #menu.active { left: 0; }
+    
+    #overlay { 
+      display: none; 
+      position: fixed; 
+      inset: 0; 
+      background: rgba(0,0,0,0.8); 
+      z-index: 1500; 
+      backdrop-filter: blur(4px);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    #overlay.active {
+      display: block;
+      opacity: 1;
+    }
+
+    .seccion-label { 
+      font-size: 0.7rem; 
+      color: var(--primary); 
+      font-weight: 800; 
+      text-transform: uppercase; 
+      margin: 25px 0 12px 5px; 
+      letter-spacing: 2px;
+    }
+    
+    .grid-filtros { 
+      display: grid; 
+      grid-template-columns: 1fr 1fr; 
+      gap: 10px; 
+    }
+    
+    .filtro { 
+      padding: 12px; 
+      background: var(--glass); 
+      border: 1px solid transparent;
+      color: #ccc; 
+      cursor: pointer; 
+      border-radius: 10px; 
+      font-size: 0.85rem; 
+      transition: var(--transition-fast);
+      font-weight: 500;
+    }
+    
+    .filtro:hover {
+      background: var(--glass-hover);
+      border-color: rgba(255,255,255,0.1);
+      color: white;
+    }
+    
+    .filtro.active { 
+      background: var(--primary); 
+      color: #0b0c2a; 
+      font-weight: 700;
+      border-color: var(--primary);
+    }
+    
+    .filtro-full { grid-column: 1 / -1; }
+
+    /* Filtro Años Mejorado */
+    #filtroAnios { 
+      display: flex; 
+      gap: 12px; 
+      overflow-x: auto; 
+      padding: 20px 4%; 
+      scrollbar-width: none;
+
+      -webkit-overflow-scrolling: touch;
+
+      mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+    }
+    
+    #filtroAnios::-webkit-scrollbar { display: none; }
+    
+    #filtroAnios button { 
+      padding: 10px 20px; 
+      border-radius: 25px; 
+      border: 1px solid rgba(255,255,255,0.1); 
+      background: var(--glass); 
+      color: white; 
+      white-space: nowrap; 
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: var(--transition-fast);
+    }
+    
+    #filtroAnios button:hover {
+      background: var(--glass-hover);
+      border-color: rgba(255,255,255,0.2);
+    }
+    
+    #filtroAnios button.active { 
+      background: var(--primary); 
+      color: #0b0c2a; 
+      border-color: var(--primary);
+      font-weight: 700;
+    }
+
+    /* Paginación Optimizada */
+    .pagination { 
+      padding: 50px 0; 
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+      gap: 20px; 
+    }
+    
+    .pagination-buttons { 
+      display: flex; 
+      gap: 15px; 
+    }
+    
+    .btn-pag {
+      padding: 12px 30px; 
+      background: var(--primary); 
+      border: none; 
+      border-radius: 10px; 
+      font-weight: 800; 
+      color: #0b0c2a; 
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: var(--transition-fast);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .btn-pag:hover:not(:disabled) {
+      background: var(--primary-hover);
+      transform: translateY(-2px);
+    }
+    
+    .btn-pag:disabled { 
+      opacity: 0.3; 
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    #indicadorPaginas {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    /* Estados Vacíos */
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-muted);
+    }
+    
+    .empty-state svg {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 20px;
+      opacity: 0.5;
+    }
+
+    /* Loading Skeleton */
+    .skeleton {
+      background: linear-gradient(90deg, var(--bg-card) 25%, #1a1d3d 50%, var(--bg-card) 75%);
+      background-size: 200% 100%;
+      animation: loading 1.5s infinite;
+      border-radius: 12px;
+      aspect-ratio: 2/3;
+    }
+    
+    @keyframes loading {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* Responsive Touch-ups */
+    @media (max-width: 768px) {
+      #hero-container { height: 45vh; min-height: 350px; }
+      .hero-content h1 { font-size: 1.5rem; }
+      .btn-hero { padding: 12px 20px; font-size: 0.9rem; }
+      .info h4 { font-size: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div id="btnMenu" style="cursor:pointer; padding: 5px;">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round">
+      <path d="M3 12h18M3 6h18M3 18h18"/>
+    </svg>
+  </div>
+  <div class="search-container">
+    <input type="search" id="buscador" class="buscador" placeholder="Buscar películas, series o animes..." autocomplete="off">
+  </div>
+</header>
+
+<div id="overlay"></div>
+
+<nav id="menu">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+    <h2 style="color:var(--primary); font-weight: 800; font-size: 1.5rem;">CineStream</h2>
+    <div id="btnCerrarMenu" style="cursor: pointer; padding: 5px;">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round">
+        <path d="M18 6L6 18M6 6l12 12"/>
+      </svg>
+    </div>
+      </div>
+  
+  <div class="seccion-label">Navegación</div>
+  <div class="grid-filtros">
+    <button class="filtro filtro-full active" data-genero="todos">✨ Explorar Todo</button>
+    <button class="filtro" data-genero="peliculas">🎬 Películas</button>
+    <button class="filtro" data-genero="series">📺 Series</button>
+    <button class="filtro filtro-full" data-genero="animes">🇯🇵 Animes</button>
+  </div>
+  
+  <div class="seccion-label">Géneros</div>
+  <div class="grid-filtros">
+    <button class="filtro" data-genero="accion">Acción</button>
+    <button class="filtro" data-genero="aventura">Aventura</button>
+    <button class="filtro" data-genero="ciencia ficcion">C. Ficción</button>
+    <button class="filtro" data-genero="crimen">Crimen</button>
+    <button class="filtro" data-genero="comedia">Comedia</button>
+    <button class="filtro" data-genero="drama">Drama</button>
+    <button class="filtro" data-genero="fantasia">Fantasía</button>
+    <button class="filtro" data-genero="misterio">Misterio</button>
+    <button class="filtro" data-genero="romance">Romance</button>
+    <button class="filtro" data-genero="suspenso">Suspenso</button>
+    <button class="filtro filtro-full" data-genero="terror">👻 Terror</button>
+  </div>
+</nav>
+
+<section id="hero-container">
+  <div id="hero-wrapper"></div>
+  <div class="slider-dots" id="hero-dots"></div>
+</section>
+
+<div id="filtroAnios"></div>
+
+<main class="galeria" id="galeria">
+  <!-- Skeleton loading inicial -->
+  <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+  <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+</main>
+
+<div class="pagination">
+  <div class="pagination-buttons">
+    <button id="anterior" class="btn-pag">← Anterior</button>
+    <button id="siguiente" class="btn-pag">Siguiente →</button>
+  </div>
+  <span id="indicadorPaginas">Cargando...</span>
+</div>
+
+<script>
+  // Configuración constante
+  const CONFIG = {
+    itemsPerPageMobile: 24,  // 3 columnas × 8 filas
+    itemsPerPageDesktop: 48, // 6 columnas × 8 filas
+    slideInterval: 6000,
+    animationDelay: 30 // ms entre cards
+  };
+
+  // Estado global
+  const state = {
+    peliculas: [],
+    peliculasFiltradas: [],
+    paginaActual: 1,
+    porPagina: window.innerWidth >= 1024 ? CONFIG.itemsPerPageDesktop : CONFIG.itemsPerPageMobile,
+    sliderIndex: 0,
+    generoActivo: "todos",
+    anioActivo: "todos",
+    sliderInterval: null,
+    sourcesLoaded: false
+  };
+
+  // Referencias DOM cacheadas
+  const DOM = {
+    galeria: document.getElementById('galeria'),
+    buscador: document.getElementById('buscador'),
+    menu: document.getElementById('menu'),
+    overlay: document.getElementById('overlay'),
+    heroContainer: document.getElementById('hero-container'),
+    heroWrapper: document.getElementById('hero-wrapper'),
+    heroDots: document.getElementById('hero-dots'),
+    filtroAnios: document.getElementById('filtroAnios'),
+    btnAnterior: document.getElementById('anterior'),
+    btnSiguiente: document.getElementById('siguiente'),
+    indicadorPaginas: document.getElementById('indicadorPaginas')
+  };
+
+  // Utilidades
+  const normalizar = (str) => str?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "") || "";
+  
+  const debounce = (fn, delay) => {
+    let timeout;
+    return (...args) => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => fn(...args), delay);
+    };
+  };
+
+  // Función para determinar el tipo de contenido
+  const determinarTipo = (p) => {
+    const url = normalizar(p.url || '');
+    const tipo = normalizar(p.tipo || '');
+    
+    // Obtener géneros como array normalizado
+    const generos = Array.isArray(p.genero) 
+      ? p.genero.map(g => normalizar(g)) 
+      : [normalizar(p.genero)];
+    
+    // Detectar SERIES - Múltiples criterios
+    const esSerie = url.includes("series") || 
+                   url.includes("/serie/") || 
+                   url.includes("/series/") ||
+                   url.includes("serie-") ||
+                   url.includes("-serie-") ||
+                   tipo === "serie" ||
+                   tipo === "series" ||
+                   generos.includes("serie") ||
+                   generos.includes("series") ||
+                   p.categoria === "series";
+    
+    // Detectar ANIMES - Múltiples criterios  
+    const esAnime = url.includes("animes") || 
+                   url.includes("/anime/") || 
+                   url.includes("/animes/") ||
+                   url.includes("anime-") ||
+                   url.includes("-anime-") ||
+                   url.includes("japon") ||
+                   tipo === "anime" ||
+                   tipo === "animes" ||
+                   generos.includes("anime") ||
+                   generos.includes("animes") ||
+                   p.categoria === "animes" ||
+                   p.idioma === "ja" ||
+                   p.idioma === "jp";
+    
+    // Si es serie o anime, retornar ese tipo
+    if (esSerie) return 'series';
+    if (esAnime) return 'animes';
+    
+    // Si no es ni serie ni anime, es película
+    return 'peliculas';
+  };
+
+  // Carga de datos desde sources.json
+  const cargarDatos = async () => {
+    try {
+      // 1. Primero cargar el índice de fuentes
+      const indexResponse = await fetch('sources.json');
+      if (!indexResponse.ok) {
+        throw new Error(`Error cargando sources.json: ${indexResponse.status}`);
+      }
+      
+      const index = await indexResponse.json();
+      
+      if (!index.sources || !Array.isArray(index.sources) || index.sources.length === 0) {
+        throw new Error('sources.json no contiene una lista válida de fuentes');
+      }
+      
+      console.log('Cargando fuentes:', index.sources);
+      
+      // 2. Cargar todos los archivos JSON listados
+      const resultados = await Promise.all(
+        index.sources.map(url => 
+          fetch(url)
+            .then(r => r.ok ? r.json() : [])
+            .catch(err => {
+              console.warn(`Error cargando ${url}:`, err);
+              return [];
+            })
+        )
+      );
+      
+      // 3. Combinar todos los resultados y agregar tipo
+      state.peliculas = resultados.flat()
+        .filter(p => p && p.titulo)
+        .map(p => ({
+          ...p,
+          _tipoCalculado: determinarTipo(p) // Precalcular tipo
+        }));
+      
+      if (state.peliculas.length === 0) {
+        mostrarError("No se encontraron películas en los archivos de datos.");
+        return;
+      }
+      
+      console.log(`Cargadas ${state.peliculas.length} películas desde ${index.sources.length} archivos`);
+      console.log('Distribución:', {
+        peliculas: state.peliculas.filter(p => p._tipoCalculado === 'peliculas').length,
+        series: state.peliculas.filter(p => p._tipoCalculado === 'series').length,
+        animes: state.peliculas.filter(p => p._tipoCalculado === 'animes').length
+      });
+      
+      state.sourcesLoaded = true;
+      inicializarApp();
+      
+    } catch (error) {
+      console.error("Error cargando datos:", error);
+      mostrarError(`Error al cargar el catálogo: ${error.message}`);
+    }
+  };
+
+  const mostrarError = (msg) => {
+    DOM.galeria.innerHTML = `
+      <div class="empty-state">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/>
+        </svg>
+        <h3>${msg}</h3>
+        <button onclick="location.reload()" style="margin-top: 20px; padding: 10px 20px; background: var(--primary); border: none; border-radius: 8px; color: #0b0c2a; font-weight: 700; cursor: pointer;">Reintentar</button>
+      </div>
+    `;
+    DOM.indicadorPaginas.textContent = "Error de carga";
+  };
+
+  // Inicialización
+  const inicializarApp = () => {
+    configurarBanner();
+    generarBotonesAnios();
+    detectarParametrosURL();
+    filtrar();
+    
+    // Event listeners
+    window.addEventListener('resize', debounce(() => {
+      const nuevoPorPagina = window.innerWidth >= 1024 ? CONFIG.itemsPerPageDesktop : CONFIG.itemsPerPageMobile;
+      if (nuevoPorPagina !== state.porPagina) {
+        state.porPagina = nuevoPorPagina;
+        state.paginaActual = 1;
+        mostrarPeliculas();
+      }
+    }, 250));
+  };
+
+  const detectarParametrosURL = () => {
+    const params = new URLSearchParams(window.location.search);
+    const search = params.get('search');
+    const genero = params.get('genero');
+    
+    if (search) {
+      DOM.buscador.value = decodeURIComponent(search);
+      DOM.heroContainer.style.display = 'none';
+    }
+    
+    if (genero) {
+      state.generoActivo = normalizar(genero);
+      actualizarBotonesGenero();
+    }
+  };
+  const actualizarBotonesGenero = () => {
+    document.querySelectorAll('.filtro').forEach(f => {
+      f.classList.toggle('active', normalizar(f.dataset.genero) === state.generoActivo);
+    });
+  };
+
+  // Banner Hero mostrando solo el primer género de cada película
+  const configurarBanner = () => {
+    const estrenos = state.peliculas
+      .filter(p => String(p.fecha) === "2026" && (p.banner || p.imagen))
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 8);
+    
+    const listaBanner = estrenos.length > 0 ? estrenos : state.peliculas.slice(0, 5);
+    
+    if (listaBanner.length === 0) {
+      DOM.heroContainer.style.display = 'none';
+      return;
+    }
+
+    DOM.heroWrapper.innerHTML = '';
+    DOM.heroDots.innerHTML = '';
+
+    listaBanner.forEach((p, i) => {
+      const slide = document.createElement('div');
+      slide.className = `hero-slide ${i === 0 ? 'active' : ''}`;
+      slide.style.backgroundImage = `url('${p.banner || p.imagen}')`;
+           // Obtener el primer género (maneja array o string)
+      const primerGenero = Array.isArray(p.genero) ? p.genero[0] : p.genero || 'Drama';
+      
+      slide.innerHTML = `
+        <div class="hero-content">
+          <span class="badge-estreno">🔥 Estreno 2026</span>
+          <h1>${p.titulo}</h1>
+          <div class="hero-meta">
+            <span>${primerGenero}</span>
+            <span>•</span>
+            <span>${p.duracion || '2h 15min'}</span>
+          </div>
+          <a href="${p.url}" class="btn-hero">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            Ver Ahora
+          </a>
+        </div>
+      `;
+      DOM.heroWrapper.appendChild(slide);
+
+      const dot = document.createElement('div');
+      dot.className = `dot ${i === 0 ? 'active' : ''}`;
+      dot.onclick = () => cambiarSlide(i);
+      DOM.heroDots.appendChild(dot);
+    });
+
+    if (listaBanner.length > 1) {
+      iniciarAutoSlide(listaBanner.length);
+    }
+  };
+
+  const cambiarSlide = (index) => {
+    state.sliderIndex = index;
+    actualizarSliderVisual();
+    resetearAutoSlide();
+  };
+
+  const actualizarSliderVisual = () => {
+    const slides = document.querySelectorAll('.hero-slide');
+    const dots = document.querySelectorAll('.dot');
+    
+    slides.forEach((s, i) => s.classList.toggle('active', i === state.sliderIndex));
+    dots.forEach((d, i) => d.classList.toggle('active', i === state.sliderIndex));
+  };
+
+  const iniciarAutoSlide = (total) => {
+    state.sliderInterval = setInterval(() => {
+      state.sliderIndex = (state.sliderIndex + 1) % total;
+      actualizarSliderVisual();
+    }, CONFIG.slideInterval);
+  };
+
+  const resetearAutoSlide = () => {
+    clearInterval(state.sliderInterval);
+    iniciarAutoSlide(document.querySelectorAll('.hero-slide').length);
+  };
+
+  // Renderizado de películas
+  const mostrarPeliculas = () => {
+    const inicio = (state.paginaActual - 1) * state.porPagina;
+    const lista = state.peliculasFiltradas.slice(inicio, inicio + state.porPagina);
+    
+    DOM.galeria.innerHTML = '';
+    
+    if (lista.length === 0) {
+      DOM.galeria.innerHTML = `
+        <div class="empty-state">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+          </svg>
+          <h3>No se encontraron resultados</h3>
+          <p>Intenta con otros filtros o términos de búsqueda</p>
+        </div>
+      `;
+      actualizarPaginacion();
+      return;
+    }
+
+    const fragment = document.createDocumentFragment();
+    
+    lista.forEach((p, i) => {
+      const div = document.createElement('div');
+      div.className = 'pelicula';
+      div.style.animationDelay = `${i * CONFIG.animationDelay}ms`;
+      
+      // Fallback para imágenes
+      const imgError = `this.onerror=null; this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22600%22><rect fill=%22%23121430%22 width=%22400%22 height=%22600%22/><text fill=%22%2396BB54%22 font-family=%22sans-serif%22 font-size=%2220%22 x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22>${encodeURIComponent(p.titulo.substring(0, 15))}</text></svg>';`;
+      
+      div.innerHTML = `
+        <a href="${p.url}" style="text-decoration: none; color: inherit;">
+          <div class="fecha">${p.fecha || '2024'}</div>
+          <img class="bandera" src="banderas/${p.idioma || 'es'}.png" onerror="this.style.display='none'" alt="">
+          <img class="poster" src="${p.imagen}" loading="lazy" onerror="${imgError}" alt="${p.titulo}">
+          <div class="info">
+            <h4>${p.titulo}</h4>
+          </div>
+        </a>
+      `;
+      fragment.appendChild(div);
+    });
+    
+    DOM.galeria.appendChild(fragment);
+    actualizarPaginacion();
+  };
+
+  // ============================================
+  // FUNCIÓN DE FILTRADO CORREGIDA
+  // ============================================
+  const filtrar = () => {
+    const texto = normalizar(DOM.buscador.value.trim());
+    
+    // Determinar si hay filtros activos
+    const hayFiltrosActivos = texto || 
+                               (state.generoActivo !== "todos") || 
+                               (state.anioActivo !== "todos");
+    
+    // Mostrar/ocultar hero según filtros
+    DOM.heroContainer.style.display = hayFiltrosActivos ? 'none' : 'block';
+    
+    // Filtrar películas
+    state.peliculasFiltradas = state.peliculas.filter(p => {
+      // Filtro de texto (búsqueda)
+      const matchTexto = !texto || normalizar(p.titulo).includes(texto);
+      
+      // Filtro de año
+      const matchAnio = state.anioActivo === "todos" || 
+                       String(p.fecha) === String(state.anioActivo);
+      
+      // Filtro de tipo/género
+      let matchGen = true;
+      
+      if (state.generoActivo !== "todos") {
+        if (state.generoActivo === "peliculas") {
+          // Solo películas: debe ser tipo 'peliculas' (no series ni animes)
+          matchGen = p._tipoCalculado === 'peliculas';
+        } else if (state.generoActivo === "series") {
+          // Solo series
+          matchGen = p._tipoCalculado === 'series';
+        } else if (state.generoActivo === "animes") {
+          // Solo animes
+          matchGen = p._tipoCalculado === 'animes';
+        } else {
+          // Filtro por género cinematográfico (acción, drama, etc.)
+          // En este caso mostramos TODO tipo de contenido que tenga ese género
+          const generos = Array.isArray(p.genero) 
+            ? p.genero.map(g => normalizar(g)) 
+            : [normalizar(p.genero)];
+          matchGen = generos.includes(state.generoActivo);
+        }
+      }
+      
+      return matchTexto && matchAnio && matchGen;
+    });
+    
+    console.log(`Filtro aplicado: ${state.generoActivo}`, {
+      total: state.peliculasFiltradas.length,
+      peliculas: state.peliculasFiltradas.filter(p => p._tipoCalculado === 'peliculas').length,
+      series: state.peliculasFiltradas.filter(p => p._tipoCalculado === 'series').length,
+      animes: state.peliculasFiltradas.filter(p => p._tipoCalculado === 'animes').length
+    });
+    
+    state.paginaActual = 1;
+    mostrarPeliculas();
+  };
+
+  const debouncedFiltrar = debounce(filtrar, 300);
+
+  // Generador de filtros de año
+  const generarBotonesAnios = () => {
+    const anios = [...new Set(state.peliculas.map(p => p.fecha))]
+      .filter(a => a)
+      .sort((a, b) => b - a);
+    
+    DOM.filtroAnios.innerHTML = '<button class="active" data-anio="todos">Todos los años</button>';
+    
+    anios.forEach(anio => {
+      const btn = document.createElement('button');
+      btn.textContent = anio;
+      btn.dataset.anio = anio;
+      btn.onclick = () => seleccionarAnio(anio, btn);
+      DOM.filtroAnios.appendChild(btn);
+    });
+    
+    DOM.filtroAnios.firstChild.onclick = () => seleccionarAnio("todos", DOM.filtroAnios.firstChild);
+  };
+
+  const seleccionarAnio = (anio, btn) => {
+    DOM.filtroAnios.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    state.anioActivo = anio;
+    filtrar();
+  };
+
+  // Paginación
+  const actualizarPaginacion = () => {
+    const total = Math.max(1, Math.ceil(state.peliculasFiltradas.length / state.porPagina));
+    
+    DOM.indicadorPaginas.textContent = `Página ${state.paginaActual} de ${total}`;
+    
+    DOM.btnAnterior.disabled = state.paginaActual === 1;
+    DOM.btnSiguiente.disabled = state.paginaActual >= total;
+  };
+
+  const cambiarPagina = (delta) => {
+    const total = Math.ceil(state.peliculasFiltradas.length / state.porPagina);
+    const nuevaPagina = state.paginaActual + delta;
+    
+    if (nuevaPagina >= 1 && nuevaPagina <= total) {
+      state.paginaActual = nuevaPagina;
+      mostrarPeliculas();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  // Event Listeners
+  const initEventListeners = () => {
+    // Menú
+    document.getElementById('btnMenu').onclick = () => {
+      DOM.menu.classList.add('active');
+      DOM.overlay.classList.add('active');
+    };
+    
+    const cerrarMenu = () => {
+      DOM.menu.classList.remove('active');
+      DOM.overlay.classList.remove('active');
+    };
+    
+    document.getElementById('btnCerrarMenu').onclick = cerrarMenu;
+    DOM.overlay.onclick = cerrarMenu;
+    
+    // Búsqueda
+    DOM.buscador.addEventListener('input', debouncedFiltrar);
+    
+    // Filtros de género (delegación de eventos)
+    DOM.menu.addEventListener('click', (e) => {
+      if (e.target.classList.contains('filtro')) {
+        document.querySelectorAll('.filtro').forEach(f => f.classList.remove('active'));
+        e.target.classList.add('active');
+        state.generoActivo = normalizar(e.target.dataset.genero);
+        
+        if (window.innerWidth < 1024) cerrarMenu();
+        filtrar();
+      }
+    });
+    
+    // Paginación
+    DOM.btnAnterior.onclick = () => cambiarPagina(-1);
+    DOM.btnSiguiente.onclick = () => cambiarPagina(1);
+    
+    // Teclado
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') cerrarMenu();
+      if (e.key === 'ArrowLeft' && !DOM.btnAnterior.disabled) cambiarPagina(-1);
+      if (e.key === 'ArrowRight' && !DOM.btnSiguiente.disabled) cambiarPagina(1);
+    });
+  };
+
+  // Inicialización
+  initEventListeners();
+  cargarDatos();
+</script>
+
+</body>
+</html>
