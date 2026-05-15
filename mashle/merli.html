@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Merlina</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="banderas/icon.png" type="image/png">
+  <style>
+    :root {
+      --primary: #96BB54;
+      --bg-dark: #070817;
+      --bg-card: #121430;
+      --accent: #e67e22;
+      --text-main: #ffffff;
+      --glass: rgba(255, 255, 255, 0.05);
+      --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+    body { background-color: var(--bg-dark); color: var(--text-main); overflow-x: hidden; text-align: center; }
+
+    /* HEADER */
+    header {
+      position: sticky; top: 0; z-index: 1100;
+      background: rgba(7, 8, 23, 0.95); backdrop-filter: blur(15px);
+      padding: 10px 4%; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--glass);
+    }
+    .logo-link { text-decoration: none; color: var(--primary); font-weight: 800; font-size: 1.2rem; display: none; }
+    @media (min-width: 768px) { .logo-link { display: block; } }
+
+    .search-container { flex: 1; }
+    .buscador {
+      width: 100%; background: var(--glass); border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 10px 20px; border-radius: 50px; color: white; outline: none; font-size: 15px;
+    }
+
+    /* MENU LATERAL */
+    #menu { 
+      position: fixed; top: 0; left: -105%; width: 85%; max-width: 320px; height: 100vh; 
+      background: var(--bg-card); z-index: 2000; padding: 30px 20px; transition: var(--transition); 
+      overflow-y: auto; text-align: left; border-right: 1px solid var(--glass);
+    }
+    #menu.active { left: 0; }
+    #overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 1500; backdrop-filter: blur(5px); }
+    
+    .seccion-label { font-size: 0.7rem; color: var(--primary); font-weight: 800; text-transform: uppercase; margin: 25px 0 15px 5px; letter-spacing: 1.5px; opacity: 0.7; }
+    .grid-filtros { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .filtro { padding: 12px; background: var(--glass); border-radius: 8px; color: #eee; text-decoration: none; display: block; font-size: 0.8rem; transition: 0.3s; text-align: center; }
+    .filtro:hover { background: var(--primary); color: #000; }
+    .filtro-full { grid-column: 1 / -1; }
+
+    /* TITULO ORIGINAL */
+    .main-container { display: flex; flex-direction: column; align-items: center; padding: 15px 4% 50px; width: 100%; }
+    h1#titulo_display { 
+        font-size: clamp(1.1rem, 4vw, 1.8rem); font-weight: 800; margin-bottom: 15px;
+        background: linear-gradient(to right, #fff, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
+    /* PLAYER */
+    .player-wrapper { 
+        width: 100%; max-width: 1100px; background: #000; border-radius: 12px; overflow: hidden; 
+        box-shadow: 0 20px 50px rgba(0,0,0,0.8); border: 1px solid var(--glass);
+    }
+    .iframe-container { position: relative; padding-bottom: 90%; height: 0; }
+    @media (min-width: 1024px) { .iframe-container { padding-bottom: 0; height: 550px; } }
+    .iframe-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; display: none; }
+
+    /* SELECTORES LADO A LADO */
+    .selector-container { 
+        width: 100%; max-width: 1100px; margin: 15px 0; 
+        display: flex; flex-direction: row; gap: 10px; 
+    }
+    .custom-select { position: relative; flex: 1; }
+    .select-trigger {
+        width: 100%; padding: 14px; background: var(--bg-card); border: 1px solid var(--glass);
+        color: white; border-radius: 10px; font-weight: 700; font-size: 0.85rem;
+        display: flex; justify-content: center; align-items: center; cursor: pointer;
+    }
+    .select-trigger:after { content: '▼'; font-size: 0.6rem; color: var(--primary); margin-left: 8px; transition: 0.3s; }
+    .custom-select.active .select-trigger:after { transform: rotate(180deg); }
+
+    .select-options {
+        display: block; position: absolute; top: 115%; left: 0; width: 100%;
+        background: #161935; border: 1px solid var(--primary); border-radius: 10px;
+        z-index: 1000; overflow-y: auto; max-height: 200px;
+        opacity: 0; visibility: hidden; transform: translateY(-10px);
+        transition: var(--transition);
+    }
+    .custom-select.active .select-options { 
+        opacity: 1; visibility: visible; transform: translateY(0);
+    }
+    .option-item {
+        width: 100%; padding: 12px; background: none; border: none; color: white;
+        text-align: center; cursor: pointer; font-size: 0.85rem; border-bottom: 1px solid var(--glass);
+    }
+    .option-item:hover { background: var(--primary); color: black; }
+
+    /* GRID EPISODIOS */
+    .episodios-grid {
+      display: grid; 
+      grid-template-columns: repeat(4, 1fr); 
+      gap: 8px; 
+      width: 100%; 
+      max-width: 1100px; 
+      margin-top: 10px;
+      padding: 5px;
+    }
+
+    @media (min-width: 768px) { .episodios-grid { grid-template-columns: repeat(6, 1fr); } }
+
+    .ep-card { background: var(--bg-card); border-radius: 6px; overflow: hidden; cursor: pointer; border: 1.5px solid transparent; transition: 0.3s; }
+    .ep-card.activa { border-color: var(--accent); background: rgba(230, 126, 34, 0.1); }
+    .thumb { width: 100%; aspect-ratio: 16/9; object-fit: cover; pointer-events: none; }
+    .ep-info { padding: 6px 2px; text-align: center; font-size: 0.65rem; font-weight: 700; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div id="btnMenu" style="cursor:pointer; padding: 5px;"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M3 12h18M3 6h18M3 18h18"/></svg></div>
+  <a href="../index.html" class="logo-link">CineStream</a>
+  <div class="search-container">
+    <input type="search" id="buscador" class="buscador" placeholder="Buscar..." onkeypress="ejecutarBusqueda(event)">
+  </div>
+</header>
+
+<div id="overlay"></div>
+
+<nav id="menu">
+  <h2 style="color:var(--primary); font-weight: 800; margin-bottom: 20px;">CineStream</h2>
+  <div class="seccion-label">Navegación</div>
+  <div class="grid-filtros">
+    <a href="../index.html" class="filtro filtro-full">Explorar Todo</a>
+    <a href="../index.html?genero=peliculas" class="filtro">Películas</a>
+    <a href="../index.html?genero=series" class="filtro">Series</a>
+    <a href="../index.html?genero=animes" class="filtro filtro-full">Animes</a>
+  </div>
+  <div class="seccion-label">Géneros</div>
+  <div class="grid-filtros">
+    <a href="../index.html?genero=accion" class="filtro">Acción</a>
+    <a href="../index.html?genero=aventura" class="filtro">Aventura</a>
+    <a href="../index.html?genero=ciencia ficcion" class="filtro">C. Ficción</a>
+    <a href="../index.html?genero=comedia" class="filtro">Comedia</a>
+    <a href="../index.html?genero=drama" class="filtro">Drama</a>
+    <a href="../index.html?genero=terror" class="filtro">Terror</a>
+    <a href="../index.html?genero=suspenso" class="filtro">Suspenso</a>
+    <a href="../index.html?genero=romance" class="filtro">Romance</a>
+    <a href="../index.html?genero=fantasia" class="filtro">Fantasía</a>
+    <a href="../index.html?genero=misterio" class="filtro">Misterio</a>
+    <a href="../index.html?genero=crimen" class="filtro">Crimen</a>
+  </div>
+</nav>
+
+<main class="main-container">
+  <h1 id="titulo_display">Merlina</h1>
+
+  <div class="player-wrapper">
+    <div class="iframe-container" id="player-container">
+        <iframe id="iframe_s1" FRAMEBORDER="0" allow="autoplay; encrypted-media" referrerpolicy="no-referrer" allowfullscreen></iframe>
+        <iframe id="iframe_s2" FRAMEBORDER="0" allow="autoplay; encrypted-media" referrerpolicy="no-referrer" allowfullscreen></iframe>
+        <iframe id="iframe_s3" FRAMEBORDER="0" allow="autoplay; encrypted-media" referrerpolicy="no-referrer" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <div class="selector-container">
+    <div class="custom-select" id="selectServer">
+        <div class="select-trigger" onclick="toggleSelect('selectServer')"><span id="currentServerText">SERVER 1</span></div>
+        <div class="select-options">
+            <button class="option-item" onclick="cambiarServer(1, 'SERVER 1')">SERVER 1</button>
+            <button class="option-item" onclick="cambiarServer(2, 'SERVER 2')">SERVER 2</button>
+            <button class="option-item" onclick="cambiarServer(3, 'SERVER 3')">SERVER 3</button>
+        </div>
+    </div>
+    <div class="custom-select" id="selectTemp">
+        <div class="select-trigger" onclick="toggleSelect('selectTemp')"><span id="currentTempText">Temporada 1</span></div>
+        <div class="select-options">
+            <button class="option-item" onclick="mostrarTemporada(1, 'Temporada 1')">Temporada 1</button>
+            <button class="option-item" onclick="mostrarTemporada(2, 'Temporada 2')">Temporada 2</button>
+        </div>
+    </div>
+  </div>
+
+  <div id="grid-episodios" class="episodios-grid"></div>
+</main>
+
+<script>
+  // BUSCADOR ENLAZADO AL INDEX
+  function ejecutarBusqueda(event) {
+    if (event.key === 'Enter') {
+      const q = document.getElementById('buscador').value.trim();
+      if (q.length > 0) window.location.href = `../index.html?search=${encodeURIComponent(q)}`;
+    }
+  }
+
+  // MENÚ LATERAL
+  const menu = document.getElementById('menu'), overlay = document.getElementById('overlay'), btnMenu = document.getElementById('btnMenu');
+  btnMenu.onclick = () => { menu.classList.add('active'); overlay.style.display = 'block'; };
+  overlay.onclick = () => { menu.classList.remove('active'); overlay.style.display = 'none'; };
+
+  let tActual = 1, sActual = 1, epSeleccionadoIdx = 0;
+
+  const seriesDB = {
+    1: [
+      { n: 1, t: "https://i.postimg.cc/pTT4xK9Y/Merlina-1x1.jpg", s1: "https://fastream.to/embed-c03nibj5qofx.html", s2: "https://embed69.org/f/tt13443470-1x01", s3: "https://uqload.org/embed-c49f2pyy8ukv.html" },
+      { n: 2, t: "https://i.postimg.cc/tTTwyF11/Merlina-1x2.jpg", s1: "https://fastream.to/embed-h0l35kwb79wl.html", s2: "https://embed69.org/f/tt13443470-1x02", s3: "https://uqload.org/embed-wj7tjuh93urr.html" },
+      { n: 3, t: "https://i.postimg.cc/4ddqZpK6/Merlina-1x3.jpg", s1: "https://fastream.to/embed-2rcllllaf8qe.html", s2: "https://embed69.org/f/tt13443470-1x03", s3: "https://uqload.org/embed-hpfgfl92tfcp.html" },
+      { n: 4, t: "https://i.postimg.cc/8zsVT8qw/Merlina-1x4.jpg", s1: "https://fastream.to/embed-lpy885xplf4z.html", s2: "https://embed69.org/f/tt13443470-1x04", s3: "https://uqload.org/embed-x3g7os7sgylh.html" },
+      { n: 5, t: "https://i.postimg.cc/sg1R3FtJ/Merlina-1x5.jpg", s1: "https://fastream.to/embed-gmqb1puqmaf6.html", s2: "https://embed69.org/f/tt13443470-1x05", s3: "https://uqload.org/embed-kadujudymjxx.html" },
+      { n: 6, t: "https://i.postimg.cc/0yrq9gLt/Merlina-1x6.jpg", s1: "https://fastream.to/embed-32m0ci17sos5.html", s2: "https://embed69.org/f/tt13443470-1x06", s3: "https://uqload.org/embed-wpjcoupvbppk.html" },
+      { n: 7, t: "https://i.postimg.cc/GmNn27CP/Merlina-1x7.jpg", s1: "https://fastream.to/embed-mkz6kgocysrn.html", s2: "https://embed69.org/f/tt13443470-1x07", s3: "https://uqload.org/embed-9ihg4ukzuyo2.html" },
+      { n: 8, t: "https://i.postimg.cc/vZjwBqsL/Merlina-1x8.jpg", s1: "https://fastream.to/embed-t9aidh9v1j16.html", s2: "https://embed69.org/f/tt13443470-1x08", s3: "https://uqload.org/embed-jn17j06xgy46.html" }
+    ],
+    2: [
+      { n: 1, t: "https://i.postimg.cc/3r6KLfrd/Merlina-2x1.jpg", s1: "https://www.tokyvideo.com/es/embed/829002", s2: "https://embed69.org/f/tt13443470-2x01", s3: "https://www.tokyvideo.com/es/embed/829002" },
+      { n: 2, t: "https://i.postimg.cc/4y99hkdR/2x2.jpg", s1: "https://www.tokyvideo.com/es/embed/829001", s2: "https://embed69.org/f/tt13443470-2x02", s3: "https://www.tokyvideo.com/es/embed/829001" },
+      { n: 3, t: "https://i.postimg.cc/gJBVZHHv/Merlina-2x3.jpg", s1: "https://www.tokyvideo.com/es/embed/829000", s2: "https://embed69.org/f/tt13443470-2x03", s3: "https://www.tokyvideo.com/es/embed/829000" },
+      { n: 4, t: "https://i.postimg.cc/Y2sRGMXk/Merlina-2x4.jpg", s1: "https://www.tokyvideo.com/es/embed/828999", s2: "https://embed69.org/f/tt13443470-2x04", s3: "https://www.tokyvideo.com/es/embed/828999" },
+      { n: 5, t: "https://i.postimg.cc/kg1p7zVn/Merlina-2x5.jpg", s1: "https://www.tokyvideo.com/es/embed/828994", s2: "https://embed69.org/f/tt13443470-2x05", s3: "https://www.tokyvideo.com/es/embed/828994" },
+      { n: 6, t: "https://i.postimg.cc/BnYVJk8J/Merlina-2x6.jpg", s1: "https://www.tokyvideo.com/es/embed/828993", s2: "https://embed69.org/f/tt13443470-2x06", s3: "https://www.tokyvideo.com/es/embed/828993" },
+      { n: 7, t: "https://i.postimg.cc/vZqNGk4S/Merlina-2x7.jpg", s1: "https://www.tokyvideo.com/es/embed/828991", s2: "https://embed69.org/f/tt13443470-2x07", s3: "https://www.tokyvideo.com/es/embed/828991" }, 
+      { n: 8, t: "https://i.postimg.cc/pLG6P49v/Merlina-2x8.jpg", s1: "https://www.tokyvideo.com/es/embed/828989", s2: "https://embed69.org/f/tt13443470-2x08", s3: "https://www.tokyvideo.com/es/embed/828989" }
+    ]
+  };
+
+  function toggleSelect(id) {
+    const el = document.getElementById(id);
+    const wasActive = el.classList.contains('active');
+    document.querySelectorAll('.custom-select').forEach(s => s.classList.remove('active'));
+    if(!wasActive) el.classList.add('active');
+  }
+
+  function mostrarTemporada(num, label) {
+    tActual = num; epSeleccionadoIdx = 0;
+    document.getElementById('currentTempText').innerText = label;
+    document.getElementById('selectTemp').classList.remove('active');
+    renderGrid(); cargarEpisodio(0);
+  }
+
+  function cambiarServer(num, label) {
+    sActual = num;
+    document.getElementById('currentServerText').innerText = label;
+    document.getElementById('selectServer').classList.remove('active');
+    cargarEpisodio(epSeleccionadoIdx);
+  }
+
+  function renderGrid() {
+    const grid = document.getElementById("grid-episodios"); grid.innerHTML = "";
+    seriesDB[tActual].forEach((ep, idx) => {
+      const card = document.createElement("div");
+      card.className = `ep-card ${idx === epSeleccionadoIdx ? 'activa' : ''}`;
+      card.onclick = () => cargarEpisodio(idx);
+      card.innerHTML = `<img src="${ep.t}" class="thumb" loading="lazy"><div class="ep-info">Episodio ${ep.n}</div>`;
+      grid.appendChild(card);
+    });
+  }
+
+  function cargarEpisodio(idx) {
+    epSeleccionadoIdx = idx; const ep = seriesDB[tActual][idx];
+    document.querySelectorAll('.ep-card').forEach((c, i) => i === idx ? c.classList.add('activa') : c.classList.remove('activa'));
+    document.getElementById("titulo_display").innerText = `Merlina T${tActual} - Episodio ${ep.n}`;
+    document.querySelectorAll('.iframe-container iframe').forEach(f => { f.style.display = 'none'; f.src = ''; });
+    const iframeActivo = document.getElementById(`iframe_s${sActual}`);
+    if(iframeActivo) { 
+        iframeActivo.src = ep[`s${sActual}`] || ep.s1; 
+        iframeActivo.style.display = 'block'; 
+    }
+  }
+
+  window.onclick = (e) => { if (!e.target.closest('.custom-select')) document.querySelectorAll('.custom-select').forEach(s => s.classList.remove('active')); };
+  window.onload = () => mostrarTemporada(1, 'Temporada 1');
+</script>
+</body>
+</html>
