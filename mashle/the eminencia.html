@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>The Eminence in Shadow</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #96BB54;
+      --bg-dark: #070817;
+      --bg-card: #121430;
+      --accent: #e67e22;
+      --text-main: #ffffff;
+      --glass: rgba(255, 255, 255, 0.05);
+      --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+    body { background-color: var(--bg-dark); color: var(--text-main); overflow-x: hidden; text-align: center; }
+
+    /* HEADER */
+    header {
+      position: sticky; top: 0; z-index: 1100;
+      background: rgba(7, 8, 23, 0.95); backdrop-filter: blur(15px);
+      padding: 10px 4%; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--glass);
+    }
+    .logo-link { text-decoration: none; color: var(--primary); font-weight: 800; font-size: 1.2rem; display: none; }
+    @media (min-width: 768px) { .logo-link { display: block; } }
+
+    .search-container { flex: 1; }
+    .buscador {
+      width: 100%; background: var(--glass); border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 10px 20px; border-radius: 50px; color: white; outline: none; font-size: 15px;
+    }
+
+    /* MENU LATERAL */
+    #menu { 
+      position: fixed; top: 0; left: -105%; width: 85%; max-width: 320px; height: 100vh; 
+      background: var(--bg-card); z-index: 2000; padding: 30px 20px; transition: var(--transition); 
+      overflow-y: auto; text-align: left; border-right: 1px solid var(--glass);
+    }
+    #menu.active { left: 0; }
+    #overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 1500; backdrop-filter: blur(5px); }
+    
+    .seccion-label { font-size: 0.7rem; color: var(--primary); font-weight: 800; text-transform: uppercase; margin: 25px 0 15px 5px; letter-spacing: 1.5px; opacity: 0.7; }
+    .grid-filtros { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .filtro { padding: 12px; background: var(--glass); border-radius: 8px; color: #eee; text-decoration: none; display: block; font-size: 0.8rem; transition: 0.3s; text-align: center; }
+    .filtro:hover { background: var(--primary); color: #000; }
+    .filtro-full { grid-column: 1 / -1; }
+
+    /* TITULO ORIGINAL */
+    .main-container { display: flex; flex-direction: column; align-items: center; padding: 15px 4% 50px; width: 100%; }
+    h1#titulo_display { 
+        font-size: clamp(1.1rem, 4vw, 1.8rem); font-weight: 800; margin-bottom: 15px;
+        background: linear-gradient(to right, #fff, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
+    /* PLAYER */
+    .player-wrapper { 
+        width: 100%; max-width: 1100px; background: #000; border-radius: 12px; overflow: hidden; 
+        box-shadow: 0 20px 50px rgba(0,0,0,0.8); border: 1px solid var(--glass);
+    }
+    .iframe-container { position: relative; padding-bottom: 90%; height: 0; }
+    @media (min-width: 1024px) { .iframe-container { padding-bottom: 0; height: 550px; } }
+    .iframe-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; display: none; }
+
+    /* SELECTORES LADO A LADO */
+    .selector-container { 
+        width: 100%; max-width: 1100px; margin: 15px 0; 
+        display: flex; flex-direction: row; gap: 10px; 
+    }
+    .custom-select { position: relative; flex: 1; }
+    .select-trigger {
+        width: 100%; padding: 14px; background: var(--bg-card); border: 1px solid var(--glass);
+        color: white; border-radius: 10px; font-weight: 700; font-size: 0.85rem;
+        display: flex; justify-content: center; align-items: center; cursor: pointer;
+    }
+    .select-trigger:after { content: '▼'; font-size: 0.6rem; color: var(--primary); margin-left: 8px; transition: 0.3s; }
+    .custom-select.active .select-trigger:after { transform: rotate(180deg); }
+
+    .select-options {
+        display: block; position: absolute; top: 115%; left: 0; width: 100%;
+        background: #161935; border: 1px solid var(--primary); border-radius: 10px;
+        z-index: 1000; overflow-y: auto; max-height: 200px;
+        opacity: 0; visibility: hidden; transform: translateY(-10px);
+        transition: var(--transition);
+    }
+    .custom-select.active .select-options { 
+        opacity: 1; visibility: visible; transform: translateY(0);
+    }
+    .option-item {
+        width: 100%; padding: 12px; background: none; border: none; color: white;
+        text-align: center; cursor: pointer; font-size: 0.85rem; border-bottom: 1px solid var(--glass);
+    }
+    .option-item:hover { background: var(--primary); color: black; }
+
+    /* GRID EPISODIOS */
+    .episodios-grid {
+      display: grid; 
+      grid-template-columns: repeat(4, 1fr); 
+      gap: 8px; 
+      width: 100%; 
+      max-width: 1100px; 
+      margin-top: 10px;
+      padding: 5px;
+    }
+
+    @media (min-width: 768px) { .episodios-grid { grid-template-columns: repeat(6, 1fr); } }
+
+    .ep-card { background: var(--bg-card); border-radius: 6px; overflow: hidden; cursor: pointer; border: 1.5px solid transparent; transition: 0.3s; }
+    .ep-card.activa { border-color: var(--accent); background: rgba(230, 126, 34, 0.1); }
+    .thumb { width: 100%; aspect-ratio: 16/9; object-fit: cover; pointer-events: none; }
+    .ep-info { padding: 6px 2px; text-align: center; font-size: 0.65rem; font-weight: 700; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div id="btnMenu" style="cursor:pointer; padding: 5px;"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M3 12h18M3 6h18M3 18h18"/></svg></div>
+  <a href="../index.html" class="logo-link">CineStream</a>
+  <div class="search-container">
+    <input type="search" id="buscador" class="buscador" placeholder="Buscar..." onkeypress="ejecutarBusqueda(event)">
+  </div>
+</header>
+
+<div id="overlay"></div>
+
+<nav id="menu">
+  <h2 style="color:var(--primary); font-weight: 800; margin-bottom: 20px;">CineStream</h2>
+  <div class="seccion-label">Navegación</div>
+  <div class="grid-filtros">
+    <a href="../index.html" class="filtro filtro-full">Explorar Todo</a>
+    <a href="../index.html?genero=peliculas" class="filtro">Películas</a>
+    <a href="../index.html?genero=series" class="filtro">Series</a>
+    <a href="../index.html?genero=animes" class="filtro filtro-full">Animes</a>
+  </div>
+  <div class="seccion-label">Géneros</div>
+  <div class="grid-filtros">
+    <a href="../index.html?genero=accion" class="filtro">Acción</a>
+    <a href="../index.html?genero=aventura" class="filtro">Aventura</a>
+    <a href="../index.html?genero=ciencia ficcion" class="filtro">C. Ficción</a>
+    <a href="../index.html?genero=comedia" class="filtro">Comedia</a>
+    <a href="../index.html?genero=drama" class="filtro">Drama</a>
+    <a href="../index.html?genero=terror" class="filtro">Terror</a>
+    <a href="../index.html?genero=suspenso" class="filtro">Suspenso</a>
+    <a href="../index.html?genero=romance" class="filtro">Romance</a>
+    <a href="../index.html?genero=fantasia" class="filtro">Fantasía</a>
+    <a href="../index.html?genero=misterio" class="filtro">Misterio</a>
+    <a href="../index.html?genero=crimen" class="filtro">Crimen</a>
+  </div>
+</nav>
+
+<main class="main-container">
+  <h1 id="titulo_display">The Eminence in Shadow</h1>
+
+  <div class="player-wrapper">
+    <div class="iframe-container" id="player-container">
+        <iframe id="iframe_s1" FRAMEBORDER="0" allow="autoplay; encrypted-media" referrerpolicy="no-referrer" allowfullscreen></iframe>
+        <iframe id="iframe_s2" FRAMEBORDER="0" allow="autoplay; encrypted-media" referrerpolicy="no-referrer" allowfullscreen></iframe>
+        <iframe id="iframe_s3" FRAMEBORDER="0" allow="autoplay; encrypted-media" referrerpolicy="no-referrer" allowfullscreen></iframe>
+        <iframe id="iframe_s4" FRAMEBORDER="0" allow="autoplay; encrypted-media" referrerpolicy="no-referrer" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <div class="selector-container">
+    <div class="custom-select" id="selectServer">
+        <div class="select-trigger" onclick="toggleSelect('selectServer')"><span id="currentServerText">SERVER 1</span></div>
+        <div class="select-options">
+            <button class="option-item" onclick="cambiarServer(1, 'SERVER 1')">SERVER 1</button>
+            <button class="option-item" onclick="cambiarServer(2, 'SERVER 2')">SERVER 2</button>
+            <button class="option-item" onclick="cambiarServer(3, 'SERVER 3')">SERVER 3</button>
+            <button class="option-item" onclick="cambiarServer(4, 'SERVER 4')">SERVER 4</button>
+        </div>
+    </div>
+    <div class="custom-select" id="selectTemp">
+        <div class="select-trigger" onclick="toggleSelect('selectTemp')"><span id="currentTempText">Temporada 1</span></div>
+        <div class="select-options">
+            <button class="option-item" onclick="mostrarTemporada(1, 'Temporada 1')">Temporada 1</button>
+            <button class="option-item" onclick="mostrarTemporada(2, 'Temporada 2')">Temporada 2</button>
+        </div>
+    </div>
+  </div>
+
+  <div id="grid-episodios" class="episodios-grid"></div>
+</main>
+
+<script>
+  // BUSCADOR ENLAZADO AL INDEX
+  function ejecutarBusqueda(event) {
+    if (event.key === 'Enter') {
+      const q = document.getElementById('buscador').value.trim();
+      if (q.length > 0) window.location.href = `../index.html?search=${encodeURIComponent(q)}`;
+    }
+  }
+
+  // MENÚ LATERAL
+  const menu = document.getElementById('menu'), overlay = document.getElementById('overlay'), btnMenu = document.getElementById('btnMenu');
+  btnMenu.onclick = () => { menu.classList.add('active'); overlay.style.display = 'block'; };
+  overlay.onclick = () => { menu.classList.remove('active'); overlay.style.display = 'none'; };
+
+  let tActual = 1, sActual = 1, epSeleccionadoIdx = 0;
+
+  const seriesDB = {
+    1: [
+      { n: 1, t: "https://i.postimg.cc/j2ySmChn/eminence-1.jpg", s1: "https://www.tokyvideo.com/es/embed/386384", s2: "https://fastream.to/embed-wfxujkvsdsk0.html", s3: "https://vidhidevip.com/embed/v22b3mzfl4rk", s4: "https://sfastwish.com/e/0joegt4ii56s" },
+      { n: 2, t: "https://i.postimg.cc/6qCpgThG/eminence-2.jpg", s1: "https://www.tokyvideo.com/es/embed/386390", s2: "https://fastream.to/embed-f1p69tm9ecow.html", s3: "https://vidhidevip.com/embed/0u8dziaivuaq", s4: "https://sfastwish.com/e/iog7p6ed09fp" },
+      { n: 3, t: "https://i.postimg.cc/zvTG63kD/eminence-3.jpg", s1: "https://www.tokyvideo.com/es/embed/386391", s2: "https://fastream.to/embed-1ec38o81rnya.html", s3: "https://vidhidevip.com/embed/asrkwyuix929", s4: "https://sfastwish.com/e/3cjb95svf8ha" },
+      { n: 4, t: "https://i.postimg.cc/PxgqS11d/eminence-4.jpg", s1: "https://www.tokyvideo.com/es/embed/386397", s2: "https://fastream.to/embed-6dbll10dmp78.html", s3: "https://vidhidevip.com/embed/itm6pmzp59ub", s4: "https://sfastwish.com/e/l6ulpjm8tk4l" },
+      { n: 5, t: "https://i.postimg.cc/pdQkWBXn/eminence-5.jpg", s1: "https://www.tokyvideo.com/es/embed/386399", s2: "https://fastream.to/embed-cb6e1oymimok.html", s3: "https://vidhidevip.com/embed/juvwvnozw6cn", s4: "https://sfastwish.com/e/kpva667omcsi" },
+      { n: 6, t: "https://i.postimg.cc/GpPzLjh8/eminence-6.jpg", s1: "https://www.tokyvideo.com/es/embed/386400", s2: "https://fastream.to/embed-887q8h0mt3l5.html", s3: "https://vidhidevip.com/embed/amjuv8c6ag5j", s4: "https://sfastwish.com/e/frvlevsi5od1" },
+      { n: 7, t: "https://i.postimg.cc/k5PfPH9B/eminence-7.jpg", s1: "https://www.tokyvideo.com/es/embed/386402", s2: "https://fastream.to/embed-l7jtmlqd6rb2.html", s3: "https://sfastwish.com/e/nb6ses9mkqgt", s4: "https://vidhidevip.com/embed/twmre3pvq2hd" },
+      { n: 8, t: "https://i.postimg.cc/8CdwpbPs/eminence-8.jpg", s1: "https://www.tokyvideo.com/es/embed/386403", s2: "https://fastream.to/embed-ts5np8yp59j4.html", s3: "https://sfastwish.com/e/g84r2enigv8c", s4: "https://vidhidevip.com/embed/nidn8ycge1lf" },
+      { n: 9, t: "https://i.postimg.cc/PxvDChmn/eminence-9.jpg", s1: "https://www.tokyvideo.com/es/embed/386411", s2: "https://fastream.to/embed-ms6pwguopzxq.html", s3: "https://sfastwish.com/e/fzqq6mjkctz0", s4: "https://vidhidevip.com/embed/lw8ijk1mlzst" },
+      { n: 10, t: "https://i.postimg.cc/tTn6syhR/eminence-10.jpg", s1: "https://www.tokyvideo.com/es/embed/386415", s2: "https://fastream.to/embed-177151a41eyo.html", s3: "https://sfastwish.com/e/q6qtmo98rmvi", s4: "https://vidhidevip.com/embed/sisd2km5kzv4" },
+      { n: 11, t: "https://i.postimg.cc/QtK7Fsph/eminence-11.jpg", s1: "https://www.tokyvideo.com/es/embed/386417", s2: "https://fastream.to/embed-1l1ona6yogda.html", s3: "https://sfastwish.com/e/k3ti0j936pcc", s4: "https://vidhidevip.com/embed/3q00uwgh302t" },
+      { n: 12, t: "https://i.postimg.cc/V60tJ1j1/eminence-12.jpg", s1: "https://www.tokyvideo.com/es/embed/386418", s2: "https://fastream.to/embed-j31fgu89tn4o.html", s3: "https://sfastwish.com/e/hbn59l5w8m1j", s4: "https://vidhidevip.com/embed/ohj9ufho3djr" }, 
+      { n: 13, t: "https://i.postimg.cc/rs6rWbJk/eminence-13.jpg", s1: "https://www.tokyvideo.com/es/embed/386420", s2: "https://fastream.to/embed-mzo7x03dnba4.html", s3: "https://sfastwish.com/e/8y0jfnxdp8n7", s4: "https://vidhidevip.com/embed/wg91h9jev14d" },
+      { n: 14, t: "https://i.postimg.cc/gkHVqwWQ/eminence-14.jpg", s1: "https://fastream.to/embed-eawm0x7vwci5.html", s2: "https://fastream.to/embed-eawm0x7vwci5.html", s3: "https://sfastwish.com/e/b8blzip4313x", s4: "https://vidhidevip.com/embed/jwna2yl4n7jk" },
+      { n: 15, t: "https://i.postimg.cc/BQ05KTd2/eminence-15.jpg", s1: "https://fastream.to/embed-esv4mwuxwp0m.html", s2: "https://fastream.to/embed-esv4mwuxwp0m.html", s3: "https://sfastwish.com/e/fkw8uqpnpvvv", s4: "https://vidhidevip.com/embed/fi2adkztetvb" },
+      { n: 16, t: "https://i.postimg.cc/h4xbvyZZ/eminence-16.jpg", s1: "https://www.tokyvideo.com/es/embed/386725", s2: "https://fastream.to/embed-elvu7pnsiipu.html", s3: "https://sfastwish.com/e/byuirytd47jm", s4: "https://vidhidevip.com/embed/j2z59g9i0k0y" },
+      { n: 17, t: "https://i.postimg.cc/J7Jc06Yv/17.jpg", s1: "https://www.tokyvideo.com/es/embed/386730", s2: "https://fastream.to/embed-1gr3yzqbk66k.html", s3: "https://sfastwish.com/e/u9uo9sqpi12i", s4: "https://vidhidevip.com/embed/c523oym3n75f" },
+      { n: 18, t: "https://i.postimg.cc/SK2Y5RB4/eminence-18.jpg", s1: "https://fastream.to/embed-4uvdc2f9jhui.html", s2: "https://fastream.to/embed-4uvdc2f9jhui.html", s3: "https://sfastwish.com/e/4ff602fttj6e", s4: "https://vidhidevip.com/embed/dvipf39fhce7" },
+      { n: 19, t: "https://i.postimg.cc/05TvdQfp/eminence-19.jpg", s1: "https://www.tokyvideo.com/es/embed/386733", s2: "https://fastream.to/embed-j9ji00dpwz9v.html", s3: "https://sfastwish.com/e/w5w4by6uft3x", s4: "https://vidhidevip.com/embed/8q9us5fyqrz7" },
+      { n: 20, t: "https://i.postimg.cc/Kvt292qV/eminence-20.jpg", s1: "https://www.tokyvideo.com/es/embed/386751", s2: "https://fastream.to/embed-z16qwkixm2lw.html", s3: "https://sfastwish.com/e/i6s1f9884g0p", s4: "https://vidhidevip.com/embed/tgguya8fovgi" }
+    ],
+    2: [
+      { n: 1, t: "https://i.postimg.cc/C1BPdqmt/eminence-2x1.jpg", s1: "https://www.tokyvideo.com/es/embed/400136", s2: "https://fastream.to/embed-bzmj9k21ne5n.html", s3: "https://sfastwish.com/e/8b2mub1nipyd", s4: "https://vidhidevip.com/embed/0j8hq0qiq6ud" },
+      { n: 2, t: "https://i.postimg.cc/v8pR7Q9y/eminence-2x2.jpg", s1: "https://www.tokyvideo.com/es/embed/400140", s2: "https://fastream.to/embed-mvy8j4mqgqzw.html", s3: "https://sfastwish.com/e/o4mkmp8sp3or", s4: "https://vidhidevip.com/embed/5plzjprjizau" },
+      { n: 3, t: "https://i.postimg.cc/wM4Snp4K/eminence-2x3.jpg", s1: "https://www.tokyvideo.com/es/embed/400146", s2: "https://fastream.to/embed-g46ffu02hfso.html", s3: "https://sfastwish.com/e/q67agxp6y1n4", s4: "https://vidhidevip.com/embed/xw50gpxydnpj" },
+      { n: 4, t: "https://i.postimg.cc/j2Sp85XQ/eminence-2x4.jpg", s1: "https://www.tokyvideo.com/es/embed/400154", s2: "https://fastream.to/embed-v8locn471dws.html", s3: "https://sfastwish.com/e/pykvqancrg82", s4: "https://vidhidevip.com/embed/ywqrmyw4twlg" },
+      { n: 5, t: "https://i.postimg.cc/Pq8YwQnQ/eminence-2x5.jpg", s1: "https://www.tokyvideo.com/es/embed/400158", s2: "https://fastream.to/embed-1ge0menon2oz.html", s3: "https://sfastwish.com/e/bbymwhyhg2bi", s4: "https://vidhidevip.com/embed/9fc2x58goas7" },
+      { n: 6, t: "https://i.postimg.cc/8P07mfH0/eminence-2x6.jpg", s1: "https://www.tokyvideo.com/es/embed/400178", s2: "https://fastream.to/embed-dc3j9eoejjt7.html", s3: "https://sfastwish.com/e/ibc26nn8kp7v", s4: "https://vidhidevip.com/embed/pwu3h2nz1dil" },
+      { n: 7, t: "https://i.postimg.cc/WbHdwqny/eminence-2x7.jpg", s1: "https://www.tokyvideo.com/es/embed/400181", s2: "https://fastream.to/embed-0lczae17ixoo.html", s3: "https://sfastwish.com/e/gkm0nx5841y2", s4: "https://vidhidevip.com/embed/8j2wzyn49hb6" }, 
+      { n: 8, t: "https://i.postimg.cc/jSyRnDkc/eminence-2x8.jpg", s1: "https://www.tokyvideo.com/es/embed/431052", s2: "https://fastream.to/embed-w6cru6rm2aib.html", s3: "https://sfastwish.com/e/9h25bg4r2z4i", s4: "https://vidhidevip.com/embed/c6m9en606jg7" }, 
+      { n: 9, t: "https://i.postimg.cc/L8GvwXHV/eminence-2x9.jpg", s1: "https://www.tokyvideo.com/es/embed/431056", s2: "https://fastream.to/embed-moqckw79qmo7.html", s3: "https://sfastwish.com/e/hq7j5c1m1htt", s4: "https://vidhidevip.com/embed/u60y7c89f04p" }, 
+      { n: 10, t: "https://i.postimg.cc/WbYPDMnz/eminence-2x10.jpg", s1: "https://www.tokyvideo.com/es/embed/431062", s2: "https://fastream.to/embed-ysfuvbyhirpe.html", s3: "https://sfastwish.com/e/6h7ppg9qx2x7", s4: "https://vidhidevip.com/embed/g5kxg7ycnhme" }, 
+      { n: 11, t: "https://i.postimg.cc/7YfWWj3G/eminence-2x11.jpg", s1: "https://fastream.to/embed-hat2rkp3527z.html", s2: "https://fastream.to/embed-hat2rkp3527z.html", s3: "https://sfastwish.com/e/r2u7j7jdtqo9", s4: "https://voe.sx/e/sluel1ncpqvm" }, 
+      { n: 12, t: "https://i.postimg.cc/dtp8txzQ/eminence-2x12.jpg", s1: "https://fastream.to/embed-4rqojyr62vjj.html", s2: "https://fastream.to/embed-4rqojyr62vjj.html", s3: "https://sfastwish.com/e/2xcwdc0j1ejd", s4: "https://voe.sx/e/qqf96vklrkfn" }
+    ]
+  };
+
+  function toggleSelect(id) {
+    const el = document.getElementById(id);
+    const wasActive = el.classList.contains('active');
+    document.querySelectorAll('.custom-select').forEach(s => s.classList.remove('active'));
+    if(!wasActive) el.classList.add('active');
+  }
+
+  function mostrarTemporada(num, label) {
+    tActual = num; epSeleccionadoIdx = 0;
+    document.getElementById('currentTempText').innerText = label;
+    document.getElementById('selectTemp').classList.remove('active');
+    renderGrid(); cargarEpisodio(0);
+  }
+
+  function cambiarServer(num, label) {
+    sActual = num;
+    document.getElementById('currentServerText').innerText = label;
+    document.getElementById('selectServer').classList.remove('active');
+    cargarEpisodio(epSeleccionadoIdx);
+  }
+
+  function renderGrid() {
+    const grid = document.getElementById("grid-episodios"); grid.innerHTML = "";
+    seriesDB[tActual].forEach((ep, idx) => {
+      const card = document.createElement("div");
+      card.className = `ep-card ${idx === epSeleccionadoIdx ? 'activa' : ''}`;
+      card.onclick = () => {
+        cargarEpisodio(idx);
+        // Desplazamiento suave al iFrame solo al pulsar en una tarjeta
+        const player = document.getElementById('player-container');
+        if (player) {
+          player.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      };
+      card.innerHTML = `<img src="${ep.t}" class="thumb" loading="lazy"><div class="ep-info">Episodio ${ep.n}</div>`;
+      grid.appendChild(card);
+    });
+  }
+
+  function cargarEpisodio(idx) {
+    epSeleccionadoIdx = idx; const ep = seriesDB[tActual][idx];
+    document.querySelectorAll('.ep-card').forEach((c, i) => i === idx ? c.classList.add('activa') : c.classList.remove('activa'));
+    document.getElementById("titulo_display").innerText = `The Eminence in Shadow T${tActual} - Episodio ${ep.n}`;
+    document.querySelectorAll('.iframe-container iframe').forEach(f => { f.style.display = 'none'; f.src = ''; });
+    const iframeActivo = document.getElementById(`iframe_s${sActual}`);
+    if(iframeActivo) { 
+        iframeActivo.src = ep[`s${sActual}`] || ep.s1; 
+        iframeActivo.style.display = 'block'; 
+    }
+  }
+
+  window.onclick = (e) => { if (!e.target.closest('.custom-select')) document.querySelectorAll('.custom-select').forEach(s => s.classList.remove('active')); };
+  window.onload = () => mostrarTemporada(1, 'Temporada 1');
+</script>
+</body>
+</html>
