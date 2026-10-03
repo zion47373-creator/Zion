@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Bastard Ankoku no Hakaishin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #96BB54;
+      --bg-dark: #070817;
+      --bg-card: #121430;
+      --text-main: #ffffff;
+      --text-muted: #a0a0a0;
+      --glass: rgba(255, 255, 255, 0.05);
+      --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+    body { background-color: var(--bg-dark); color: var(--text-main); overflow-x: hidden; }
+
+    header {
+      position: sticky; top: 0; z-index: 1100;
+      background: rgba(7, 8, 23, 0.95); backdrop-filter: blur(15px);
+      padding: 10px 4%; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--glass);
+    }
+    .logo-link { text-decoration: none; color: var(--primary); font-weight: 800; font-size: 1.2rem; display: none; }
+    @media (min-width: 768px) { .logo-link { display: block; } }
+
+    .search-container { flex: 1; }
+    .buscador {
+      width: 100%; background: var(--glass); border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 12px 20px; border-radius: 50px; color: white; outline: none; font-size: 16px;
+    }
+
+    .main-wrapper { width: 100%; max-width: 1100px; margin: 0 auto; padding: 20px 0 50px; }
+    @media (min-width: 768px) { .main-wrapper { padding: 40px 4% 50px; } }
+
+    .movie-header { text-align: center; padding: 10px 4% 20px; }
+    /* Estilo h1 mantenido igual con clamp para responsive */
+    h1 { font-size: clamp(1.6rem, 6vw, 2.5rem); font-weight: 800; line-height: 1.1; background: linear-gradient(to right, #fff, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+    .video-container { width: 100%; background: #000; aspect-ratio: 16 / 9; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.5); overflow: hidden; margin-bottom: 30px; }
+    @media (min-width: 768px) { .video-container { border-radius: 12px; border: 1px solid var(--glass); } }
+    iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+
+    .temp-nav { display: flex; justify-content: center; gap: 10px; margin-bottom: 25px; padding: 0 4%; }
+    .btn-temp { background: var(--glass); color: #ccc; border: 1px solid rgba(255,255,255,0.1); padding: 10px 25px; border-radius: 50px; cursor: pointer; font-weight: 600; transition: var(--transition); }
+    .btn-temp.active { background: var(--primary); color: #000; border-color: var(--primary); }
+
+    .episodes-box { background: var(--bg-card); border-radius: 15px; padding: 20px; border: 1px solid var(--glass); margin: 0 4%; }
+    .episodes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+    @media (min-width: 768px) { .episodes-grid { grid-template-columns: repeat(6, 1fr); gap: 15px; } }
+
+    .btn-ep { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white; padding: 12px 5px; border-radius: 10px; text-align: center; cursor: pointer; font-weight: 600; font-size: 0.8rem; transition: var(--transition); }
+    .btn-ep.active-ep { background: var(--primary) !important; color: #000 !important; font-weight: 800; }
+
+    .pagination { display: flex; justify-content: space-between; align-items: center; padding-top: 15px; border-top: 1px solid var(--glass); }
+    .nav-arrow { background: transparent; border: 1px solid var(--primary); color: var(--primary); padding: 8px 16px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+    .nav-arrow:disabled { opacity: 0.2; cursor: not-allowed; }
+
+    #menu { position: fixed; top: 0; left: -105%; width: 85%; max-width: 320px; height: 100vh; background: var(--bg-card); z-index: 2000; padding: 30px 20px; transition: left 0.5s cubic-bezier(0.16, 1, 0.3, 1); overflow-y: auto; border-right: 1px solid var(--glass); }
+    #menu.active { left: 0; }
+    #overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 1500; backdrop-filter: blur(5px); }
+    .seccion-label { font-size: 0.7rem; color: var(--primary); font-weight: 800; text-transform: uppercase; margin: 25px 0 15px 5px; letter-spacing: 1.5px; opacity: 0.7; }
+    .grid-filtros { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .filtro { padding: 12px; background: var(--glass); border: 1px solid transparent; color: #eee; cursor: pointer; border-radius: 8px; font-size: 0.8rem; transition: 0.3s; text-align: left; text-decoration: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .filtro:hover { background: var(--primary); color: #000; font-weight: 700; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div id="btnMenu" style="cursor:pointer; padding: 5px;"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg></div>
+  <a href="../index.html" class="logo-link">CineStream</a>
+  <div class="search-container"><input type="search" id="buscadorInput" class="buscador" placeholder="Buscar en el catálogo..."></div>
+</header>
+
+<div id="overlay"></div>
+<nav id="menu">
+  <h2 style="color:var(--primary); font-weight: 800; margin-bottom: 20px;">CineStream</h2>
+  <div class="seccion-label">Navegación</div>
+  <div class="grid-filtros">
+    <a href="../index.html" class="filtro" style="grid-column: 1/-1">Explorar Todo</a>
+    <a href="../index.html?genero=peliculas" class="filtro">Películas</a>
+    <a href="../index.html?genero=series" class="filtro">Series</a>
+    <a href="../index.html?genero=animes" class="filtro" style="grid-column: 1/-1">Animes</a>
+  </div>
+  <div class="seccion-label">Géneros</div>
+  <div class="grid-filtros" id="menuGeneros"></div>
+</nav>
+
+<main class="main-wrapper">
+  <div class="movie-header">
+    <h1 id="mainTitle">Bastard Ankoku no Hakaishin</h1>
+  </div>
+
+  <div class="video-container">
+    <iframe id="videoPlayer" src="" allowfullscreen></iframe>
+  </div>
+
+  <nav class="temp-nav">
+    <button id="t1" class="btn-temp" onclick="changeTemp(1)">Temporada 1</button>
+    <button id="t2" class="btn-temp" onclick="changeTemp(2)">Temporada 2</button>
+  </nav>
+
+  <div class="episodes-box">
+    <div id="gridEp" class="episodes-grid"></div>
+    <div class="pagination">
+      <button id="btnPrev" class="nav-arrow" onclick="movePage(-1)">←</button>
+      <span id="pageTxt">Pág. 1</span>
+      <button id="btnNext" class="nav-arrow" onclick="movePage(1)">→</button>
+    </div>
+  </div>
+</main>
+
+<script>
+  const EP_LIMIT = 6;
+  let currentT = 1;
+  let currentP = 0;
+
+  const episodesData = {
+    1: {
+      1: "https://fastream.to/embed-zpohavyx5n1u.html", 2: "https://fastream.to/embed-dcac49u66i6a.html", 3: "https://fastream.to/embed-gu0ufk00u2wo.html", 
+      4: "https://fastream.to/embed-ln0430dnnouq.html", 5: "https://fastream.to/embed-d262rda0b0q2.html", 6: "https://fastream.to/embed-46m4reke3a1f.html", 
+      7: "https://fastream.to/embed-cq4gsa2be6wh.html", 8: "https://fastream.to/embed-nrukvx9s8fqz.html", 9: "https://fastream.to/embed-kpcjlbd4day1.html", 
+      10: "https://fastream.to/embed-juenwqwssrw0.html", 11: "https://fastream.to/embed-zhevjn7m190q.html", 12: "https://fastream.to/embed-my6dotbs4pln.html", 
+      13: "https://fastream.to/embed-v4uue0t286lz.html"
+    },
+    2: {
+      1: "https://fastream.to/embed-qlpkjeoahcu2.html", 2: "https://fastream.to/embed-wlw2ykw5b2au.html", 3: "https://fastream.to/embed-3bsqrlcqaz9d.html", 
+      4: "https://fastream.to/embed-w2se9mhjnn4m.html", 5: "https://fastream.to/embed-akej99abvjth.html", 6: "https://fastream.to/embed-ilwbo19lv90o.html", 
+      7: "https://fastream.to/embed-ptrpwdh52gia.html", 8: "https://fastream.to/embed-aq135s1ux69r.html", 9: "https://fastream.to/embed-kwkha8xwdcw5.html", 
+      10: "https://fastream.to/embed-jr2uod0q846j.html", 11: "https://fastream.to/embed-4z00q4j5t1pg.html", 12: "https://fastream.to/embed-mlxiz591shcl.html", 
+      13: "https://fastream.to/embed-xahtk79t0lhj.html", 14: "https://fastream.to/embed-2u6f2cq3r809.html", 15: "https://fastream.to/embed-mh4t9p5u89dq.html"
+    }
+  };
+
+  function changeTemp(n) {
+    currentT = n; currentP = 0;
+    document.querySelectorAll('.btn-temp').forEach(b => b.classList.toggle('active', b.id === 't'+n));
+    render();
+    play(1);
+  }
+
+  function render() {
+    const grid = document.getElementById("gridEp"); grid.innerHTML = "";
+    const seasonData = episodesData[currentT];
+    const totalEps = Object.keys(seasonData).length;
+    for (let i = 1; i <= totalEps; i++) {
+      const btn = document.createElement("button");
+      btn.className = "btn-ep";
+      btn.textContent = `EP ${String(i).padStart(2, '0')}`;
+      btn.onclick = () => play(i);
+      grid.appendChild(btn);
+    }
+    updateNav();
+  }
+
+  function play(epNum) {
+    const url = episodesData[currentT][epNum];
+    if(!url) return;
+    document.getElementById("videoPlayer").src = url;
+    document.getElementById("mainTitle").textContent = `Bastard Ankoku no Hakaishin T${currentT} E${String(epNum).padStart(2, '0')}`;
+    document.querySelectorAll('.btn-ep').forEach(b => {
+      b.classList.toggle('active-ep', b.textContent === `EP ${String(epNum).padStart(2, '0')}`);
+    });
+    if (window.innerWidth < 768) window.scrollTo({ top: 80, behavior: 'smooth' });
+  }
+
+  function updateNav() {
+    const all = document.querySelectorAll(".btn-ep");
+    all.forEach((b, i) => b.style.display = (i >= currentP*EP_LIMIT && i < (currentP+1)*EP_LIMIT) ? "block" : "none");
+    document.getElementById("btnPrev").disabled = currentP === 0;
+    document.getElementById("btnNext").disabled = (currentP+1)*EP_LIMIT >= all.length;
+    document.getElementById("pageTxt").textContent = `Pág. ${currentP+1}`;
+  }
+
+  function movePage(step) { currentP += step; updateNav(); }
+
+  const gens = ["Accion", "Aventura", "Ciencia Ficcion", "Comedia", "Drama", "Fantasia", "Misterio", "Romance", "Suspenso", "Terror", "Crimen"];
+  const menuG = document.getElementById('menuGeneros');
+  gens.forEach(g => {
+    const a = document.createElement('a');
+    a.href = `../index.html?genero=${g.toLowerCase()}`;
+    a.className = "filtro";
+    a.textContent = g;
+    menuG.appendChild(a);
+  });
+
+  document.getElementById('buscadorInput').onkeydown = (e) => {
+    if (e.key === 'Enter') window.location.href = `../index.html?search=${encodeURIComponent(e.target.value)}`;
+  };
+
+  const menu = document.getElementById('menu'), overlay = document.getElementById('overlay');
+  document.getElementById('btnMenu').onclick = () => { menu.classList.add('active'); overlay.style.display = 'block'; };
+  overlay.onclick = () => { menu.classList.remove('active'); overlay.style.display = 'none'; };
+
+  window.onload = () => changeTemp(1);
+</script>
+</body>
+</html>
