@@ -1,0 +1,38 @@
+{
+  "465": {
+    "titulo": "Yo antes de ser yo",
+    "imdb": "tt39370887",
+    "servers": [
+      "https://embed69.org/f/{imdb}",
+      "https://fastream.to/embed-0qpjef1jj7bj.html",
+      "https://xupalace.org/video/{imdb}/"
+    ]
+  },
+  "506": {
+    "titulo": "Pacto de fuga",
+    "imdb": "tt5538670",
+    "servers": [
+      "https://embed69.org/f/{imdb}",
+      "https://fastream.to/embed-458hz4fq5pe1.html",
+      "https://xupalace.org/video/{imdb}/"
+    ]
+  },
+    "507": {
+    "titulo": "Phineas y Ferb La película Candace contra el universo",
+    "imdb": "tt1817232",
+    "servers": [
+      "https://embed69.org/f/{imdb}",
+      "https://fastream.to/embed-ogqollddaoxm.html",
+      "https://xupalace.org/video/{imdb}/"
+    ]
+  },
+    "508": {
+    "titulo": "Proyecto Power",
+    "imdb": "tt7550000",
+    "servers": [
+      "https://embed69.org/f/{imdb}",
+      "https://fastream.to/embed-lmr1xoq281w2.html",
+      "https://xupalace.org/video/{imdb}/"
+    ]
+  }
+}
