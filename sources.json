@@ -1,0 +1,18 @@
+{
+  "sources": [
+    "json/las.json",
+    "json/peliculas.json",
+    "json/series.json",
+    "json/pos.json",
+    "json/animes.json"
+  ],
+
+  "data_peliculas": [
+    "data/data-peliculas.json",
+    "data/data-peliculas-2.json"
+  ],
+
+  "data_series": [
+    "data/data-series.json"
+  ]
+}
